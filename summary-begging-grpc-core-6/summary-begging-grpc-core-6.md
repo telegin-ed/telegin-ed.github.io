@@ -1380,12 +1380,14 @@ go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
 5. Проверка - запустить приложение, 
 
 * запросить список сервисов (plaintext - по http)
+
 ```cmd
 > grpcurl localhost:5174 list
 > grpcurl -plaintext localhost:5174 list
 ```
 
 * список функций
+
 ```
 > grpcurl -plaintext localhost:5174 list gRPCDemo.v1.CountryService
 
@@ -1401,6 +1403,7 @@ gRPCDemo.v1.CountryService.Update
 ```
 
 * описание функции
+
 ```
 > grpcurl -plaintext localhost:5174 describe gRPCDemo.v1.CountryService.Create
 
@@ -1410,6 +1413,7 @@ rpc Create ( stream .gRPCDemo.v1.CountryCreationRequest ) returns ( stream .gRPC
 ```
 
 * описание сервиса со всеми функциями
+
 ```
 > grpcurl -plaintext localhost:5174 describe gRPCDemo.v1.CountryService
 
@@ -1431,6 +1435,7 @@ service CountryService {
 ```
 
 * описание сообщения
+
 ```
 > grpcurl -plaintext localhost:5174 describe gRPCDemo.v1.CountryCreationRequest
 
@@ -1450,8 +1455,10 @@ message CountryCreationRequest {
 ```
 
 * запрос без параметров
+
 ```
 > grpcurl -plaintext localhost:5174 gRPCDemo.v1.CountryService.GetAll
+
 {
 
   "Id": 1,
@@ -1490,6 +1497,7 @@ message CountryCreationRequest {
 ```
 
 * запрос элемента по параметру (примеры написаны для cmd, в других утилитах работа со строками и кавычками может отличаться)
+
 ```
 > grpcurl -plaintext -d "{\"Id\": 1}" localhost:5174 gRPCDemo.v1.CountryService/Get
 
@@ -1507,6 +1515,7 @@ message CountryCreationRequest {
 ```
 
 * Передача потока во входном аргументе
+
 ```
 > grpcurl -plaintext -d "{\"Id\": 1}{\"Id\": 2}" localhost:5174 gRPCDemo.v1.CountryService/Delete
 
