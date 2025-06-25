@@ -3392,11 +3392,11 @@ public class CountryGrpcService : CountryServiceBase
   В .NET 9 продолжается переход на полностью управляемую реализацию gRPC для .NET (`grpc-dotnet`), которая использует встроенные в .NET TLS и HTTP/2 стеки, что уменьшает размер приложения и упрощает деплой. Пакет `Grpc.Core` рекомендуется удалять из проектов при миграции[2][3].
 
 Источники:  
-[1] https://learn.microsoft.com/ru-ru/aspnet/core/grpc/versioning?view=aspnetcore-9.0  
-[2] https://learn.microsoft.com/ru-ru/aspnet/core/grpc/migration?view=aspnetcore-9.0  
-[3] https://grpc.io/blog/grpc-csharp-future/  
-[4] https://github.com/grpc/grpc-dotnet  
-[5] https://habr.com/ru/companies/otus/articles/516766/  
-[6] https://ru.stackoverflow.com/questions/1386304/asp-net-core-grpc-%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%82%D1%8C-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0-%D0%BF%D0%BE-%D1%82%D0%B0%D0%B9%D0%BC%D0%B0%D1%83%D1%82%D1%83  
-[7] https://grpc.io/blog/page/2/  
-[8] https://ru.stackoverflow.com/questions/tagged/grpc?tab=Newest  
+[1] [Управление версиями gRPC Services](https://learn.microsoft.com/ru-ru/aspnet/core/grpc/versioning?view=aspnetcore-9.0)  
+[2] [Перенос gRPC с C-core на gRPC для .NET](https://learn.microsoft.com/ru-ru/aspnet/core/grpc/migration?view=aspnetcore-9.0)  
+[3] [The future of gRPC in C# belongs to grpc-dotnet](https://grpc.io/blog/grpc-csharp-future/)  
+[4] [https://github.com/grpc/grpc-dotnet]https://github.com/grpc/grpc-dotnet  
+[5] [Сжатие ответов в GRPC для ASP.NET CORE 3.0](https://habr.com/ru/companies/otus/articles/516766/)  
+[6] [ASP.net Core gRPC - остановить обработку запроса по таймауту](https://ru.stackoverflow.com/questions/1386304/asp-net-core-grpc-%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%82%D1%8C-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0-%D0%BF%D0%BE-%D1%82%D0%B0%D0%B9%D0%BC%D0%B0%D1%83%D1%82%D1%83)  
+[7] [https://grpc.io/blog/page/2/](https://grpc.io/blog/page/2/)  
+[8] [Вопросы с меткой [grpc]](https://ru.stackoverflow.com/questions/tagged/grpc?tab=Newest)  
