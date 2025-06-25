@@ -219,7 +219,7 @@ gRPC позволяет использовать метаданные в вид�
 | ALREADY_EXISTS | 6 | The entity already exists. |
 | PERMISSION_DENIED | 7 | The caller doesn’t have the required permission. |
 | RESOURCE_EXHAUSTED | 8 | The requested resource has been exhausted. |
-| FAI LED_PRECONDITION | 9 | A precondition has failed. |
+| FAILED_PRECONDITION | 9 | A precondition has failed. |
 | ABORTED | 10 | The operation was aborted. |
 | OUT_OF_RANGE | 11 | An invalid argument causes that exception during its cast. |
 | UNIMPLEMENTED | 12 | The operation is not implemented. |
@@ -1129,6 +1129,19 @@ option csharp_namespace = "Apress.Sample.gRPC";
 message Continent {
     int32 ContinentId = 1;
     string ContinentName = 2;
+}
+```
+
+```protobuf
+syntax = "proto3";
+
+package gRPCDemo.v1;
+
+option csharp_namespace = "Apress.Sample.gRPC";
+
+message Error {
+    string SearchContent = 1;
+    string Message = 2;
 }
 ```
 
@@ -3381,54 +3394,9 @@ public class CountryGrpcService : CountryServiceBase
 Источники:  
 [1] https://learn.microsoft.com/ru-ru/aspnet/core/grpc/versioning?view=aspnetcore-9.0  
 [2] https://learn.microsoft.com/ru-ru/aspnet/core/grpc/migration?view=aspnetcore-9.0  
-[5] https://habr.com/ru/companies/otus/articles/516766/
-
-[1] https://learn.microsoft.com/ru-ru/aspnet/core/grpc/versioning?view=aspnetcore-9.0
-[2] https://learn.microsoft.com/ru-ru/aspnet/core/grpc/migration?view=aspnetcore-9.0
-[3] https://grpc.io/blog/grpc-csharp-future/
-[4] https://github.com/grpc/grpc-dotnet
-[5] https://habr.com/ru/companies/otus/articles/516766/
-[6] https://ru.stackoverflow.com/questions/1386304/asp-net-core-grpc-%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%82%D1%8C-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0-%D0%BF%D0%BE-%D1%82%D0%B0%D0%B9%D0%BC%D0%B0%D1%83%D1%82%D1%83
-[7] https://grpc.io/blog/page/2/
-[8] https://ru.stackoverflow.com/questions/tagged/grpc?tab=Newest
-
-
-### <a id="appendix-2">Локальная отладка</a>
-
-Запросы к сервису grpc можно делать, например, из Insomnia. Если GrpcReflection не включен в сервисе, для работы в Insomnia, предварительно потребуется загрузить proto-файл.
-
-Если grpc-канал не использует TLS, тогда все просто - в строке подключения к каналу указывается адрес с протоколом `grpc`, например: `grpc://my.server:9999`. Далее можно выполнять запросы.
-
-Если используется TLS - на примере grpc-сервиса, развернутого в OpenShift, выполнить запросы не получилось. Общая последовательность такая:
-- в параметрах Insomnia добавить рутовый (в конкретном случая использовалась цепочка из рутового и промежуточного) и клиентский сертификаты
-- в названии сертификата нужно указать хост и порт, который будет использоваться для обращению к grpc-каналу ([Client Certificates](https://docs.insomnia.rest/insomnia/client-certificates)).
-- в строке подключения указать `grpcs://...` ([gRPC - TLS/SSL](https://docs.insomnia.rest/insomnia/grpc#tlsssl)).
-
-Если grpc-сервис развернут в OpenShift, обойти проблему подключения по TLS можно с помощью port-forwarding.
-
-- Подключить к проекту чере cli-утилиту `oc` - скачать ее можно с самого инстанса OpenShift.
-- При подключении указать требуемый адрес инстанса OpenShift, url для подключения, также береться из раздела Help, OpenShift, например:
-
-```bash
-oc login https://my-openshift-server.com:6443 -u my-login
-```
-
-- Найти под, который содержит grpc-сервис:
-
-```bash
-oc get pod
-```
-
-Как правило во внутренней сети коммуникация между подами идет без TLS, поэтому определяется на каком порту работает grpc-сервис (в примере 5148) и выполняется:
-
-```bash
-oc port-forward my-grpc-app-11111111-1111 5148:5148
-```
-
-- соответственно в Insomnia обращение к сервису выполняется по адресу: `grpc://localhost:5148`.
-
-Однако в данном примере, удалось подключиться из .net проекта к сервису по TLS.
-
-- Адрес подключения в настройках приложения содержал `https`, например роут: `https://my-grpc-service.apps.my-openshift-server.com`
-
-- Далее в проекте в файле launchSettings.json в разделе profiles/мой-проект/environmentVariables добавить ключ `SSL_CERT_DIR`, в качестве значения указать каталог, в котором расположены серты взятые из клиентского приложения (в данном случае также хостился в OpenShift, хотя казалось бы серты в этом случае не нужны): цепочка сертификатов (рут + промежуточный), клиентский серт, клиентский ключ.
+[3] https://grpc.io/blog/grpc-csharp-future/  
+[4] https://github.com/grpc/grpc-dotnet  
+[5] https://habr.com/ru/companies/otus/articles/516766/  
+[6] https://ru.stackoverflow.com/questions/1386304/asp-net-core-grpc-%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%82%D1%8C-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0-%D0%BF%D0%BE-%D1%82%D0%B0%D0%B9%D0%BC%D0%B0%D1%83%D1%82%D1%83  
+[7] https://grpc.io/blog/page/2/  
+[8] https://ru.stackoverflow.com/questions/tagged/grpc?tab=Newest  
