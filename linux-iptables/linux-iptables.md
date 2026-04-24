@@ -1,4 +1,4 @@
-# 📘 Подробный конспект: Linux iptables Pocket Reference
+# Справочник iptables в Linux
 
 ## 🔹 Введение
 
