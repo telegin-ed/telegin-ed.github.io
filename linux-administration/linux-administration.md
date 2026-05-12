@@ -1,7 +1,7 @@
 # Основы администрирования Linux
 
-[Udemy Linux Administration Bootcamp](https://www.udemy.com/course/linux-administration-bootcamp/)
-[Linux Roadmap](https://roadmap.sh/linux)
+[Udemy Linux Administration Bootcamp](https://www.udemy.com/course/linux-administration-bootcamp/)  
+[Linux Roadmap](https://roadmap.sh/linux)  
 
 ## I. Linux - начальный уровень
 
