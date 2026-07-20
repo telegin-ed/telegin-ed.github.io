@@ -1,5 +1,6 @@
 ## Саммари
 
+- [C# Concurrency. Асинхронное программирование и многопоточность](./c-sharp-concurrency/c-sharp-concurrency.md)
 - [Комплексный курс по Qwen Code CLI](./qwen-code-cli/qwen-code-cli.md)
 - [Iptables](./linux-iptables/linux-iptables.md)
 - [Основы администрирования Linux](./linux-administration/linux-administration.md)
