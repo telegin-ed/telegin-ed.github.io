@@ -1,0 +1,104 @@
+/* Расширение темы primer: фиксированный сайдбар с оглавлением документа. */
+
+:root {
+  --sidebar-w: 400px;
+}
+
+/* Базовая раскладка: сайдбар — горизонтальная полоса над контентом (мобайл). */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-sidebar {
+  padding: 28px 24px;
+  font-size: 14px;
+  border-bottom: 1px solid #eaeef2;
+}
+
+.site-sidebar .site-brand {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.site-sidebar .site-brand a {
+  color: #24292f;
+  text-decoration: none;
+}
+
+.site-sidebar nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-sidebar nav ul ul {
+  margin-left: 16px;
+}
+
+.site-sidebar nav a {
+  display: block;
+  padding: 3px 0;
+  color: #57606a;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.site-sidebar nav a:hover {
+  color: #0969da;
+}
+
+.site-sidebar nav .toc-2 a {
+  font-weight: 600;
+  color: #24292f;
+}
+
+/* Оглавления нет (главная и короткие страницы) — сайдбар скрыт целиком. */
+.site-sidebar.is-hidden {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    display: block;
+  }
+
+  .site-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    border-bottom: none;
+    border-right: 1px solid #eaeef2;
+  }
+
+  .main {
+    min-height: 100vh;
+  }
+
+  /* Контент центрируется по середине окна, а когда ширины не хватает
+     (900-1800px) — отступает ровно на ширину сайдбара, не прячась под ним. */
+  .main .container-lg {
+    max-width: 1000px;
+    margin-left: max(var(--sidebar-w), calc(50vw - 500px));
+    margin-right: auto;
+  }
+
+  /* Главная без оглавления — обычная центральная колонка без отступа. */
+  .layout.no-sidebar .main .container-lg {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 899px) {
+  /* На мобильных оставляем только бренд, навигация скрыта. */
+  .site-sidebar nav {
+    display: none;
+  }
+}

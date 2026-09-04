@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 ## Саммари
 
 - [Openspec](./openspec/openspec-cheatsheet.md)

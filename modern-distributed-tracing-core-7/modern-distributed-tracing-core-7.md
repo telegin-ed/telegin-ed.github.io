@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Modern Distributed Tracing in .NET
 
 [https://github.com/PacktPublishing/Modern-Distributed-Tracing-in-.NET](https://github.com/PacktPublishing/Modern-Distributed-Tracing-in-.NET)  

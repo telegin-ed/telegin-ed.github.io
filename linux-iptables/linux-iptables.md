@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Справочник iptables в Linux
 
 ## 🔹 Введение

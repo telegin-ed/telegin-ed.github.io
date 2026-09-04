@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Изучаем DDD - предметно-ориентированное проектирование
 
 [Context Mapper - Documentation](https://contextmapper.org/docs/home/)

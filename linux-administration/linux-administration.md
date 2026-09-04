@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Основы администрирования Linux
 
 [Udemy Linux Administration Bootcamp](https://www.udemy.com/course/linux-administration-bootcamp/)  

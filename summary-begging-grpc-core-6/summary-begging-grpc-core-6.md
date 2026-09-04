@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Beginning gRPC with ASP.NET Core 6
 
 [https://github.com/Apress/beg-grpc-w-asp.net-core-6](https://github.com/Apress/beg-grpc-w-asp.net-core-6)  
