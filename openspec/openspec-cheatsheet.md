@@ -19,13 +19,13 @@ openspec update
 
 ```
 openspec/
-├── project.md          # tech stack, конвенции проекта
-├── AGENTS.md           # managed hand-off для AI-ассистентов
+├── config.yaml          # project context: tech stack, конвенции (поле context:)
 ├── specs/              # source of truth (текущее поведение системы)
 │   └── <domain>/
 │       └── spec.md
 └── changes/            # предложенные изменения (по одной папке на change)
     └── <change-name>/
+        ├── .openspec.yaml   # метаданные change (schema, дата создания)
         ├── proposal.md
         ├── design.md
         ├── tasks.md
@@ -34,78 +34,77 @@ openspec/
                 └── spec.md
 ```
 
+Дополнительно `init` настраивает конфиги выбранных инструментов — например
+`.claude/skills`, `.cursor/commands`, `.agents/skills` и т.п. Свой tech stack и
+конвенции проекта прописываются в `openspec/config.yaml` (поле `context:`) —
+только там, и OpenSpec их не перезаписывает.
+
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md#openspec-init
+
 ---
 
-## Создание мастер-спеки в существующем проекте (brownfield)
+## Работа в существующем проекте (brownfield)
 
-OpenSpec **не имеет** встроенной команды для автогенерации спек из существующего кода.
-Мастер-спека создаётся вручную через `explore` + `propose`.
+OpenSpec не автогенерирует спеки из существующего кода — и это осознанный выбор.
+**Не нужно документировать всю кодовую базу целиком.** Спеки пишутся только для
+того поведения, которое вы собираетесь менять: каждый change фиксирует свой
+срез, и со временем `specs/` заполняются вокруг реальной работы. Заполнять
+спеку задним числом (backfill) официально не рекомендуется.
 
-### Шаг 1. Изучить кодовую базу
-
-```
-/opsx:explore проанализируй структуру проекта, ключевые домены и поведение системы
-```
-
-> Explore — режим обсуждения. Ничего не пишет, только исследует код и помогает сформулировать план.
-
-### Шаг 2. Сформировать начальные спеки как change
+### Типовой первый цикл
 
 ```
-/opsx:propose document-existing-behavior
+/opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:archive
 ```
 
-> Агент создаст change-папку с proposal.md, delta-спеками (ADDED Requirements) и tasks.md.
-> Просмотрите и скорректируйте артефакты перед продолжением.
+1. **Изучить кодовую базу** (`/opsx:explore`) — режим обсуждения, ничего не пишет, помогает понять выбранную область и сформулировать план.
+2. **Создать change** (`/opsx:propose add-<что-то>`) — предложите реальное небольшое изменение, которое нужно в этой области в любом случае, а не абстрактное «задокументировать».
+3. **Реализовать** (`/opsx:apply`) и **заархивировать** (`/opsx:archive`) — после archive delta-спеки мерджатся в `openspec/specs/`.
 
-### Шаг 3. Применить и заархивировать — спеки станут source of truth
+Для guided-обучающего цикла на вашем коде есть расширенная команда `/opsx:onboard`
+(включается через `openspec config profile` + `openspec update`).
 
+### Куда записать tech stack и конвенции
+
+```yaml
+# openspec/config.yaml
+context: |
+  Tech Stack:
+  - .NET 8, ASP.NET Core, C# 12
+  - PostgreSQL, Dapper
+  - Docker Compose, Kafka
+  - xUnit, FluentAssertions
+
+  Conventions:
+  - Все эндпоинты возвращают ProblemDetails при ошибках
+  - Иммутабельные DTO через records
+  - Валидация через FluentValidation
 ```
-/opsx:apply
-/opsx:sync
-/opsx:archive
-```
 
-> После `archive` delta-спеки мерджатся в `openspec/specs/` — это и есть ваша мастер-спека.
-
-### Альтернатива: вручную создать project.md
-
-```bash
-# Отредактируйте openspec/project.md — опишите tech stack и конвенции
-# Пример содержимого для .NET-проекта:
-```
-
-```markdown
-# Project: MyApi
-
-## Tech Stack
-- .NET 8, ASP.NET Core, C# 12
-- PostgreSQL, Dapper
-- Docker Compose, Kafka
-- xUnit, FluentAssertions
-
-## Conventions
-- Все эндпоинты возвращают ProblemDetails при ошибках
-- Иммутабельные DTO через records
-- Валидация через FluentValidation
-```
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/existing-projects.md
 
 ---
 
 ## Базовый рабочий цикл (core profile)
 
 ```
-/opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
+/opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive
+  (опционально)
 ```
 
-| Команда       | Действие                                    |
-|---------------|---------------------------------------------|
+| Команда         | Действие                                    |
+|-----------------|---------------------------------------------|
 | `/opsx:explore` | Обсуждение идеи, анализ кода. Ничего не пишет. |
 | `/opsx:propose` | Создаёт change-папку: proposal.md, specs/, design.md, tasks.md |
 | `/opsx:apply`   | Реализует задачи из tasks.md, пишет код        |
-| `/opsx:verify`  | Проверяет, что код соответствует спекам (опционально) |
-| `/opsx:sync`    | Мерджит delta-спеки в основную спецификацию     |
-| `/opsx:archive` | Переносит change в `changes/archive/` с датой   |
+| `/opsx:update`  | Правка и согласование артефактов планирования (код не трогает) |
+| `/opsx:sync`    | Мерджит delta-спеки в основную спецификацию (опционально) |
+| `/opsx:archive` | Переносит change в `changes/archive/` с датой; сам предложит sync при необходимости |
+
+> `sync` — опциональная команда: `archive` предложит синхронизацию, если дельты
+> ещё не смёрджины.
+
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#quick-reference
 
 ---
 
@@ -159,6 +158,8 @@ OpenSpec **не имеет** встроенной команды для авто
 /opsx:propose fix-concurrent-update-race-condition
 ```
 
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#opsxpropose
+
 ---
 
 ## CLI-команды
@@ -179,6 +180,12 @@ openspec validate <change-id> --strict
 # Интерактивный дашборд
 openspec view
 
+# Создать change метаданные вручную
+openspec new change <change-id>
+
+# Статус артефактов change
+openspec status --change <change-id>
+
 # Архивировать завершённый change
 openspec archive <change-id> --yes
 
@@ -190,14 +197,22 @@ openspec config profile
 openspec update
 ```
 
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md
+
 ---
 
 ## Структура delta-спеки
 
-Delta-спеки описывают **только что меняется**, а не всю систему целиком:
+Delta-спеки описывают только **то, что изменится**, а не всю систему целиком.
+При создании новой capability delta-спека открывается секцией `## Purpose`
+(пара предложений о назначении).
 
 ```markdown
 # Delta for Auth
+
+## Purpose
+
+Аутентификация и управление сессиями пользователей.
 
 ## ADDED Requirements
 
@@ -227,34 +242,50 @@ Delta-спеки описывают **только что меняется**, а
 (Устарело в пользу 2FA)
 ```
 
-| Секция                  | Что происходит при archive      |
-|--------------------------|---------------------------------|
-| `## ADDED Requirements`  | Добавляется в основную спеку    |
-| `## MODIFIED Requirements` | Заменяет существующее требование |
+| Секция                    | Что происходит при archive      |
+|---------------------------|---------------------------------|
+| `## ADDED Requirements`   | Добавляется в основную спеку    |
+| `## MODIFIED Requirements`| Заменяет существующее требование |
 | `## REMOVED Requirements` | Удаляется из основной спеки     |
+
+> `sync` также распознаёт `RENAMED`-секции; спека — это контракт поведения
+> (RFC 2119: `MUST`/`SHALL`, `SHOULD`, `MAY`), без планов реализации.
+
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/writing-specs.md
 
 ---
 
 ## Расширенный профиль (expanded)
 
+Включается так:
+
+```bash
+openspec config profile
+openspec update
+```
+
 ```
 /opsx:new ──► /opsx:ff или /opsx:continue ──► /opsx:apply ──► /opsx:verify ──► /opsx:archive
 ```
 
-| Команда         | Назначение                                    |
-|-----------------|-----------------------------------------------|
-| `/opsx:new`     | Начать change (вместо propose)                 |
-| `/opsx:ff`      | Сгенерировать все артефакты за один шаг       |
-| `/opsx:continue`| Создавать артефакты инкрементально             |
-| `/opsx:verify`  | Проверить соответствие кода спекам             |
+| Команда           | Назначение                                    |
+|-------------------|-----------------------------------------------|
+| `/opsx:new`       | Начать change (вместо propose)                 |
+| `/opsx:ff`        | Сгенерировать все артефакты за один шаг       |
+| `/opsx:continue`  | Создавать артефакты инкрементально             |
+| `/opsx:verify`    | Проверить соответствие кода спекам             |
+| `/opsx:bulk-archive` | Архивация нескольких changes сразу          |
+| `/opsx:onboard`   | Обучающий цикл через реальную кодовую базу    |
+
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#expanded-workflow-commands-custom-workflow-selection
 
 ---
 
 ## Практические советы для .NET
 
-1. **project.md** — пропишите tech stack (.NET версия, БД, ORM, контейнеризацию). Агент будет учитывать это в каждом change.
+1. **`config.yaml` → `context:`** — пропишите tech stack (.NET версия, БД, ORM, контейнеризацию). Агент будет учитывать это в каждом change.
 
-2. **Домены = bounded contexts** — организуйте `specs/` по доменам:
+2. **Домены = bounded contexts** — организуйте `specs/` по доменам (capability):
    ```
    openspec/specs/
    ├── auth/spec.md
@@ -272,7 +303,11 @@ Delta-спеки описывают **только что меняется**, а
    openspec validate <change-id> --strict
    ```
 
-6. **После каждого завершённого change — archive**, чтобы delta-спеки мерджились в `openspec/specs/`.
+6. **Не заполняйте спеки задним числом.** Спеки растут по одному change вокруг реальной работы и не устаревают.
+
+7. **После каждого завершённого change — archive**, чтобы delta-спеки мерджились в `openspec/specs/`.
+
+> Источники: https://github.com/Fission-AI/OpenSpec/blob/main/docs/writing-specs.md · https://github.com/Fission-AI/OpenSpec/blob/main/docs/existing-projects.md
 
 ---
 
@@ -282,7 +317,7 @@ Delta-спеки описывают **только что меняется**, а
 # 1. (опционально) Обсудить подход
 /opsx:explore как лучше добавить кэширование ответов OrdersController
 
-# 2. Создать change с артефактами
+# 2. Создать изменения с артефактами
 /opsx:propose add-orders-response-caching
 
 # 3. Проверить структуру
@@ -291,11 +326,15 @@ openspec validate add-orders-response-caching --strict
 # 4. Реализовать
 /opsx:apply
 
-# 5. Проверить соответствие (опционально)
+# 5. Проверить соответствие (опционально, только в расширенном профиле)
 /opsx:verify
 
-# 6. Мерджить спеки и заархивировать
+# 6. Мерджить дельта спеки в основную спеку (опционально;
+#    archive сам предложит sync при необходимости)
 /opsx:sync
+
+# 7. Заархивировать завершенные изменения
 /opsx:archive
 ```
 
+> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/workflows.md
