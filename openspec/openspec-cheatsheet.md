@@ -202,7 +202,7 @@ Delta-спеки описывают **только что меняется**, а
 ## ADDED Requirements
 
 ### Requirement: Two-Factor Authentication
-Система ДОЛЖНА поддерживать TOTP-аутентификацию.
+Система MUST поддерживать TOTP-аутентификацию.
 
 #### Scenario: 2FA enrollment
 - GIVEN пользователь без 2FA
@@ -213,7 +213,7 @@ Delta-спеки описывают **только что меняется**, а
 ## MODIFIED Requirements
 
 ### Requirement: Session Expiration
-Система ДОЛЖНА истекать сессию через 15 минут бездействия.
+Система MUST истекать сессию через 15 минут бездействия.
 (Ранее: 30 минут)
 
 #### Scenario: Idle timeout
