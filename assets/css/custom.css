@@ -40,13 +40,15 @@ body .layout {
   display: flex;
   align-items: center;
   gap: 1em;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 100;
   width: 100%;
   height: var(--header-h);
   padding: 0.5em 24px;
   box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1px solid #eaeef2;
   font-size: 24px;
   font-weight: bold;
   font-family: "Oswald", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -145,7 +147,7 @@ body .layout {
 
 @media (max-width: 899px) {
   /* На мобильных оставляем только бренд, навигация скрыта. */
-  .site-sidebar nav {
+  .site-sidebar {
     display: none;
   }
 }
