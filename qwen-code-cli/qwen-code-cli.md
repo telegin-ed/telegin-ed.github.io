@@ -18,7 +18,6 @@ layout: default
 
 **Теги:** Интерактивный CLI, Headless & CI, MCP, Skills, Subagents, LSP, Extensions, Sandbox
 
----
 
 ## 1. Что такое Qwen Code CLI и как устроен курс
 
@@ -39,7 +38,7 @@ layout: default
 
 У Qwen Code три основных слоя управления: обычный natural-language prompt, **slash-команды** для управления самим CLI и служебные префиксы **@** (контекст из файлов) и **!** (shell).
 
-> ⚠️ **Важно про версии**
+> **Важно про версии**
 > 
 > Qwen Code развивается быстро. В разных версиях могут слегка отличаться названия команд и поведение отдельных experimental-функций. В этом курсе отдельно отмечены места, где docs и исходники дают разные сигналы.
 
@@ -60,7 +59,6 @@ layout: default
 | LSP | `qwen --experimental-lsp` |
 | Sandbox | `qwen -s "run tests"` |
 
----
 
 ## 2. Быстрый старт: установка, первый запуск, базовый workflow
 
@@ -92,7 +90,7 @@ qwen
 Сделай карту проекта: архитектура, точки входа, тесты, риски и что читать первым.
 ```
 
-> 💡 **Рекомендованный mental model**
+> **Рекомендованный mental model**
 > 
 > Сначала дайте Qwen Code понять кодовую базу (`/init`, `@README`, ключевые каталоги), а уже потом просите менять код. Это снижает число ложных гипотез и экономит токены.
 
@@ -104,7 +102,6 @@ qwen
 | Шаг 2 | Откройте `/help` и посмотрите `?` для keyboard shortcuts |
 | Шаг 3 | В репозитории начните с `/init` и подключите ключевые файлы через `@` |
 
----
 
 ## 3. Аутентификация: OAuth, Coding Plan, API key и приоритет конфигурации
 
@@ -176,7 +173,7 @@ export OPENAI_BASE_URL=https://api.example.com/v1
 # 4) settings.json -> env / provider config
 ```
 
-> 💡 **Практическое правило**
+> **Практическое правило**
 > 
 > Для интерактивного старта можно использовать OAuth. Для headless, CI и воспроизводимых команд лучше заранее настроить API key и provider config через `settings.json`, `.qwen/.env` или shell env.
 
@@ -188,7 +185,6 @@ export OPENAI_BASE_URL=https://api.example.com/v1
 | `/model` | Переключает модель уже в текущей сессии |
 | Project-specific secrets | Предпочтительно в `.qwen/.env`, а не в общем `.env` проекта |
 
----
 
 ## 4. Базовая модель работы: prompts, @-контекст, !-shell и хорошие инструкции
 
@@ -221,11 +217,10 @@ export OPENAI_BASE_URL=https://api.example.com/v1
 # дальше любой ввод считается shell-командой, пока не выйдете из shell mode
 ```
 
-> ℹ️ **Важно**
+> **Важно**
 > 
 > Команды, выполненные через `!`, получают переменную окружения `QWEN_CODE=1`. Это удобно для скриптов, которым нужно понимать, что они вызваны из Qwen Code.
 
----
 
 ## 5. Полный разбор slash-команд
 
@@ -260,11 +255,10 @@ Slash-команды управляют самим CLI: сессией, инте
 | `/copy` | Копирует последний вывод в буфер | `/copy` |
 | `/quit` или `/exit` | Завершает работу CLI | `/quit` |
 
-> ℹ️ **Документированные команды вне основной таблицы**
+> **Документированные команды вне основной таблицы**
 > 
 > Отдельные feature-страницы также описывают `/agents create`, `/agents manage`, `/lsp status` и команды управления trust.
 
----
 
 ## 6. @, ! и custom commands: как сделать Qwen Code удобнее именно под ваш workflow
 
@@ -275,9 +269,7 @@ Slash-команды управляют самим CLI: сессией, инте
 ```bash
 mkdir -p ~/.qwen/commands/git
 cat > ~/.qwen/commands/git/commit.md <<'EOF'
----
 description: Generate a commit message from staged changes
----
 Please generate a concise Conventional Commit message for the staged diff below:
 ```diff
 !{git diff --staged}
@@ -301,9 +293,7 @@ EOF
 | `{{args}}` | Подставляет аргументы, переданные пользователем команде |
 
 ```markdown
----
 description: Review code against internal standards
----
 Review {{args}} and use these references:
 1. Standards:
 @{docs/code-standards.md}
@@ -315,11 +305,10 @@ Return:
 - missing tests
 ```
 
-> 💡 **Когда стоит делать custom command**
+> **Когда стоит делать custom command**
 > 
 > Когда вы 3–5 раз формулировали один и тот же сложный prompt: security review, commit message, release notes, миграция, code review по внутреннему стандарту.
 
----
 
 ## 7. Headless mode и автоматизация: CI, скрипты, JSON-вывод, resume
 
@@ -336,11 +325,10 @@ Qwen Code можно использовать как интерактивног�
 | Возобновление в headless | `qwen --continue -o json "Продолжи вчерашний план"` |
 | Stream JSON | `qwen --input-format stream-json --output-format stream-json` |
 
-> ⚠️ **Нюанс про `--prompt`**
+> **Нюанс про `--prompt`**
 > 
 > Официальная документация по headless режиму активно показывает `-p/--prompt`, но в исходниках этот флаг уже помечен как deprecated в пользу позиционного prompt.
 
----
 
 ## 8. Approval modes: plan, default, auto-edit, yolo
 
@@ -371,11 +359,10 @@ qwen --approval-mode auto-edit
 qwen --yolo
 ```
 
-> 💡 **Практический совет**
+> **Практический совет**
 > 
 > Если репозиторий незнакомый — начинайте с `plan`. Если проект доверенный, но shell-команды вы хотите подтверждать вручную — используйте `auto-edit`.
 
----
 
 ## 9. Сессии, summary, compression и memory
 
@@ -397,11 +384,10 @@ qwen --yolo
 - Для явных постоянных правил проекта — `/memory add ...`
 - Чтобы вернуться позже — `/resume` или `qwen --continue`
 
-> ℹ️ **Где это особенно полезно**
+> **Где это особенно полезно**
 > 
 > Рефакторинги на несколько часов, аудит больших репозиториев, серия маленьких фиксов в одной ветке, работа с несколькими подзадачами через subagents.
 
----
 
 ## 10. Конфигурация: settings.json, .env, precedence и важные категории настроек
 
@@ -434,11 +420,10 @@ Qwen Code поддерживает layered configuration.
 - `security` — auth, trusted folders
 - `tools` — sandbox и tool-related behavior
 
-> 💡 **Подстановка env-переменных**
+> **Подстановка env-переменных**
 > 
 > Строковые значения в `settings.json` могут ссылаться на переменные окружения как `$VAR` или `${VAR}`.
 
----
 
 ## 11. Модели и model providers: как выбрать провайдера без хаоса
 
@@ -456,7 +441,6 @@ Qwen Code поддерживает layered configuration.
 - **Выбор модели на лету** — `/model` помогает менять модель без перезапуска сессии
 - **Token caching** — для пользователей API-key auth есть автоматическая оптимизация
 
----
 
 ## 12. Sandbox и security controls: как уменьшить риск при shell и правках
 
@@ -497,11 +481,10 @@ export SANDBOX_SET_UID_GID=true
 | Docker/Podman | Кроссплатформенная контейнерная изоляция |
 | Исторические env names | Некоторые переменные используют префикс `GEMINI_*` |
 
-> 💡 **Надежная стратегия**
+> **Надежная стратегия**
 > 
 > Для недоверенного репозитория комбинируйте: `--approval-mode plan/default` + `-s` + trusted folders.
 
----
 
 ## 13. MCP: подключение внешних инструментов, API и баз данных
 
@@ -559,11 +542,10 @@ qwen mcp add --transport sse sseServer http://localhost:8080/sse --timeout 30000
 | SSE | Legacy/совместимость со старыми реализациями |
 | stdio | Лучший путь для локальных скриптов и CLI-утилит |
 
-> ⚠️ **Безопасность MCP**
+> **Безопасность MCP**
 > 
 > Не включайте `trust: true` без нужды. Ограничивайте surface через `includeTools`, `excludeTools`.
 
----
 
 ## 14. Skills: как упаковать повторяемую экспертизу в discoverable capability
 
@@ -574,10 +556,8 @@ Skill — это папка с `SKILL.md` и опциональными файл
 ```bash
 mkdir -p ~/.qwen/skills/excel-analysis
 cat > ~/.qwen/skills/excel-analysis/SKILL.md <<'EOF'
----
 name: excel-analysis
 description: Analyze Excel spreadsheets, create summaries, charts, and pivot-style insights. Use when working with .xlsx files, spreadsheets, or tabular business reports.
----
 # Excel Analysis
 ## Instructions
 1. Inspect workbook structure.
@@ -603,7 +583,6 @@ EOF
 | Главное поле | `description` должно содержать «что делает» и «когда использовать» |
 | Отладка | Если Skill не подхватывается, проверьте YAML и запустите с `--debug` |
 
----
 
 ## 15. Subagents: специализированные агенты с отдельным контекстом
 
@@ -614,7 +593,6 @@ Subagents — это автономные узкие агенты внутри Q
 ```bash
 mkdir -p .qwen/agents
 cat > .qwen/agents/testing-expert.md <<'EOF'
----
 name: testing-expert
 description: Writes comprehensive unit and integration tests. Use PROACTIVELY for requests about test coverage, regression testing, edge cases, or flaky tests.
 tools:
@@ -622,7 +600,6 @@ tools:
 - write_file
 - read_many_files
 - run_shell_command
----
 You are a testing specialist.
 For each task:
 1. Analyze dependencies and edge cases.
@@ -648,7 +625,6 @@ EOF
 | `/agents manage` | Список и управление существующими конфигурациями |
 | `description` | Можно писать `use PROACTIVELY` для агрессивной авто-делегации |
 
----
 
 ## 16. LSP: deep code intelligence поверх language servers
 
@@ -704,11 +680,10 @@ go install golang.org/x/tools/gopls@latest
 - code actions
 - call hierarchy
 
-> ⚠️ **Нюанс доверия**
+> **Нюанс доверия**
 > 
 > LSP servers по умолчанию запускаются только в trusted workspaces.
 
----
 
 ## 17. Extensions: поставка MCP + skills + agents + commands одним пакетом
 
@@ -767,7 +742,6 @@ qwen extensions update --all
 - По умолчанию Qwen Code ищет extensions в `~/.qwen/extensions`
 - У extensions есть собственные значения настроек и секретов
 
----
 
 ## 18. IDE-интеграции и GitHub Actions
 
@@ -813,7 +787,6 @@ qwen extensions update --all
 - Вызывать qwen-code-action для review/triage/automation
 - При необходимости запускать `/setup-github` из репозитория
 
----
 
 ## 19. Языки, темы, accessibility, .qwenignore, trusted folders, shortcuts
 
@@ -868,7 +841,6 @@ ANSI, Atom One, Ayu, Dracula, GitHub, а также light-варианты: ANSI
 | `Ctrl/Cmd+Z` | Undo в поле ввода |
 | `Ctrl/Cmd+Shift+Z` | Redo в поле ввода |
 
----
 
 ## 20. Практические сценарии: от онбординга до CI
 
@@ -1039,7 +1011,6 @@ git diff main...feature/payments -- '*.ts' | qwen "Проанализируй э
 и объясни, как предотвратить повторение.
 ```
 
----
 
 ## 21. Troubleshooting: самые частые проблемы и как их чинить
 
@@ -1054,7 +1025,6 @@ git diff main...feature/payments -- '*.ts' | qwen "Проанализируй э
 | Слишком длинный контекст | Используйте `/summary`, `/compress`, настройте `contextPercentageThreshold` |
 | Файлы пропали из поля зрения | Проверьте `.qwenignore`. После изменения файла перезапустите сессию |
 
----
 
 ## 22. Приложения и справочники
 
@@ -1153,7 +1123,6 @@ git diff main...feature/payments -- '*.ts' | qwen "Проанализируй э
 4. Для automation используйте headless + JSON + стабильную auth-конфигурацию
 5. Для внешних систем — MCP; для глубокой навигации по коду — LSP
 
----
 
 ## 23. Источники и база актуальности
 
@@ -1178,12 +1147,11 @@ git diff main...feature/payments -- '*.ts' | qwen "Проанализируй э
 - [GitHub repository](https://github.com/QwenLM/qwen-code)
 - [GitHub releases](https://github.com/QwenLM/qwen-code/releases)
 
-> ℹ️ **Почему в курсе есть оговорки**
+> **Почему в курсе есть оговорки**
 > 
 > У быстро развивающихся CLI иногда расходятся общая страница команд, feature-страницы и фактические флаги в исходниках. Поэтому в спорных местах курс явно отмечает нюансы.
 
----
 
 ## Совет по изучению
 
-> 💡 **Совет:** сначала пройдите разделы 1–8, затем выберите один продвинутый трек: **MCP**, **Headless/CI**, **Skills/Subagents** или **LSP/IDE**. Так материал усвоится значительно быстрее, чем если читать файл строго линейно до конца.
+> **Совет:** сначала пройдите разделы 1–8, затем выберите один продвинутый трек: **MCP**, **Headless/CI**, **Skills/Subagents** или **LSP/IDE**. Так материал усвоится значительно быстрее, чем если читать файл строго линейно до конца.

@@ -4,16 +4,15 @@ layout: default
 
 # Справочник iptables в Linux
 
-## 🔹 Введение
+## Введение
 
-**Netfilter** — подсистема ядра Linux для обработки сетевых пакетов.  
+**Netfilter** — подсистема ядра Linux для обработки сетевых пакетов. 
 **iptables** — утилита командной строки для настройки Netfilter (версия 1.2.7a, ядра 2.4/2.6).
 
-> 📌 Важно: в тексте «iptables» может означать как утилиту, так и фреймворк Netfilter в целом.
+> Важно: в тексте «iptables» может означать как утилиту, так и фреймворк Netfilter в целом.
 
----
 
-## 🔹 Архитектура iptables
+## Архитектура iptables
 
 ### Три основных компонента:
 
@@ -31,11 +30,10 @@ layout: default
 | `nat` | Трансляция сетевых адресов (NAT) | `PREROUTING`, `POSTROUTING`, `OUTPUT` |
 | `mangle` | Модификация заголовков пакетов | Все 5 цепей |
 
-> ⚠️ Таблица по умолчанию — `filter`. Если не указана `-t table`, правила применяются к ней.
+> Таблица по умолчанию — `filter`. Если не указана `-t table`, правила применяются к ней.
 
----
 
-## 🔹 Точки привязки (Hook Points)
+## Точки привязки (Hook Points)
 
 Пять точек в пути обработки пакетов ядром:
 
@@ -47,41 +45,38 @@ layout: default
 | `OUTPUT` | После создания пакета локальным процессом |
 | `POSTROUTING` | Непосредственно перед отправкой пакета в сеть |
 
----
 
-![fig-1](./assets/fig-1.png)  
+![fig-1](./assets/fig-1.png) 
 
-![fig-2](./assets/fig-2.png)  
+![fig-2](./assets/fig-2.png) 
 
-![fig-3](./assets/fig-3.png)  
+![fig-3](./assets/fig-3.png) 
 
----
 
-## 🔹 Потоки пакетов по таблицам
+## Потоки пакетов по таблицам
 
-### 🔄 Маршрутизация (forwarding):
+### Маршрутизация (forwarding):
 ```
 mangle/PREROUTING → nat/PREROUTING → mangle/FORWARD → filter/FORWARD → mangle/POSTROUTING → nat/POSTROUTING
 ```
 
-### ⬇️ Входящие пакеты (input):
+### Входящие пакеты (input):
 ```
 mangle/PREROUTING → nat/PREROUTING → mangle/INPUT → filter/INPUT
 ```
 
-### ⬆️ Исходящие пакеты (output):
+### Исходящие пакеты (output):
 ```
 mangle/OUTPUT → nat/OUTPUT → filter/OUTPUT → mangle/POSTROUTING → nat/POSTROUTING
 ```
 
-### 🔄 Локальная коммуникация:
+### Локальная коммуникация:
 ```
 mangle/OUTPUT → nat/OUTPUT → filter/OUTPUT → filter/INPUT → mangle/INPUT
 ```
 
----
 
-## 🔹 Правила (Rules)
+## Правила (Rules)
 
 ### Структура правила:
 ```bash
@@ -109,9 +104,8 @@ iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination
 - По умолчанию: `ACCEPT`
 - Для пользовательских цепей: неявная политика `RETURN`
 
----
 
-## 🔹 Соответствия (Matches)
+## Соответствия (Matches)
 
 ### Базовые (встроенные) IP-соответствия:
 
@@ -141,11 +135,10 @@ iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination
 | `time` | По времени/дням недели |
 | `ttl` | По значению TTL |
 
-> 💡 Инверсия: перед опцией можно добавить `!` для отрицания: `! -s 192.168.1.0/24`
+> Инверсия: перед опцией можно добавить `!` для отрицания: `! -s 192.168.1.0/24`
 
----
 
-## 🔹 Цели (Targets)
+## Цели (Targets)
 
 ### Встроенные цели:
 
@@ -171,9 +164,8 @@ iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination
 | `TTL` | `mangle` | Изменить Time To Live |
 | `TCPMSS` | `mangle` | Корректировать MSS для PMTU |
 
----
 
-## 🔹 Отслеживание соединений (Connection Tracking)
+## Отслеживание соединений (Connection Tracking)
 
 ### Состояния соединений:
 
@@ -200,11 +192,10 @@ iptables -A INPUT -j DROP
 - `ip_conntrack_tftp` — TFTP
 - `ip_conntrack_amanda` — Amanda backup
 
-> ⚠️ Требуется загрузка модулей: `modprobe ip_conntrack_ftp`
+> Требуется загрузка модулей: `modprobe ip_conntrack_ftp`
 
----
 
-## 🔹 Сетевая трансляция адресов (NAT)
+## Сетевая трансляция адресов (NAT)
 
 ### Источник: `SNAT` и `MASQUERADE`
 ```bash
@@ -232,11 +223,10 @@ iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 \
   -j REDIRECT --to-port 3128
 ```
 
----
 
-## 🔹 Практические применения
+## Практические применения
 
-### 📊 Учёт трафика (Accounting)
+### Учёт трафика (Accounting)
 ```bash
 # Счётчики для всего внешнего трафика
 iptables -A FORWARD -i eth1
@@ -247,7 +237,7 @@ iptables -A OUTPUT -o eth1
 # Просмотр: iptables -L -v -n
 ```
 
-### 🎯 Ограничение частоты (Rate Limiting)
+### Ограничение частоты (Rate Limiting)
 ```bash
 # Не более 5 ping-запросов в секунду
 iptables -A INPUT -p icmp --icmp-type echo-request \
@@ -255,7 +245,7 @@ iptables -A INPUT -p icmp --icmp-type echo-request \
 iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
 ```
 
-### 🛡️ Защита от сканирования портов
+### Защита от сканирования портов
 ```bash
 # Блокировать после 10 попыток за 60 секунд
 iptables -A INPUT -p tcp --syn -m recent --name scan --set
@@ -263,7 +253,7 @@ iptables -A INPUT -p tcp --syn -m recent --name scan \
   --update --seconds 60 --hitcount 10 -j DROP
 ```
 
-### ⚖️ Балансировка нагрузки (простая)
+### Балансировка нагрузки (простая)
 ```bash
 # Распределение по трём серверам (round-robin)
 iptables -t nat -A PREROUTING -p tcp --dport 80 -m nth --every 3 --packet 0 \
@@ -274,9 +264,8 @@ iptables -t nat -A PREROUTING -p tcp --dport 80 -m nth --every 3 --packet 2 \
   -j DNAT --to-destination 192.168.1.12
 ```
 
----
 
-## 🔹 Команды iptables: справочник
+## Команды iptables: справочник
 
 ### Основные подкоманды:
 
@@ -318,9 +307,8 @@ iptables-save > /etc/iptables.rules
 iptables-restore < /etc/iptables.rules
 ```
 
----
 
-## 🔹 Утилиты сохранения/восстановления
+## Утилиты сохранения/восстановления
 
 ### `iptables-save`
 ```bash
@@ -346,9 +334,8 @@ iptables-restore -n < additional_rules.txt
 iptables-restore -c < rules_with_counters.txt
 ```
 
----
 
-## 🔹 Настройка в дистрибутивах
+## Настройка в дистрибутивах
 
 ### Red Hat / CentOS:
 ```bash
@@ -370,11 +357,10 @@ CONFIG_IP_NF_MANGLE=y
 CONFIG_IP_NF_CONNTRACK=y
 ```
 
-> ⚠️ Не включайте `CONFIG_NET_FASTROUTE` — обходит хуки Netfilter!
+> Не включайте `CONFIG_NET_FASTROUTE` — обходит хуки Netfilter!
 
----
 
-## 🔹 Инструменты для отладки
+## Инструменты для отладки
 
 | Утилита | Назначение |
 |---------|------------|
@@ -385,49 +371,45 @@ CONFIG_IP_NF_CONNTRACK=y
 | `/proc/net/ip_conntrack` | Таблица отслеживаемых соединений |
 | `dmesg \| grep iptables` | Логи ядра, связанные с фильтрацией |
 
----
 
-## 🔹 Чеклист безопасности
+## Чеклист безопасности
 
-✅ Включить пересылку пакетов (для шлюза):
+ Включить пересылку пакетов (для шлюза):
 ```bash
 echo 1 > /proc/sys/net/ipv4/ip_forward
 # Или в /etc/sysctl.conf:
 net.ipv4.ip_forward = 1
 ```
 
-✅ Политика по умолчанию — `DROP`, разрешать только нужное:
+ Политика по умолчанию — `DROP`, разрешать только нужное:
 ```bash
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
-iptables -P OUTPUT ACCEPT  # или тоже DROP с явными правилами
+iptables -P OUTPUT ACCEPT # или тоже DROP с явными правилами
 ```
 
-✅ Разрешить loopback:
+ Разрешить loopback:
 ```bash
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 ```
 
-✅ Разрешить установленные соединения:
+ Разрешить установленные соединения:
 ```bash
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 ```
 
-✅ Логировать подозрительные пакеты (перед DROP):
+ Логировать подозрительные пакеты (перед DROP):
 ```bash
 iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 ```
 
----
 
-> ⚠️ **Важно**: Документ описывает iptables для ядер 2.4/2.6. В современных системах (ядра 3.x+/4.x/5.x) используется `nftables` как преемник, но iptables остаётся поддерживаемым через слой совместимости.
+> **Важно**: Документ описывает iptables для ядер 2.4/2.6. В современных системах (ядра 3.x+/4.x/5.x) используется `nftables` как преемник, но iptables остаётся поддерживаемым через слой совместимости.
 
----
 
 ## Типовые команды iptables
 
----
 
 ### Просмотр правил
 Проверка текущих правил межсетевого экрана.
@@ -441,7 +423,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -S` | Показать правила в виде команд |
 | `sudo iptables -t nat -L -n -v` | Просмотр правил NAT |
 
----
 
 ### Политики по умолчанию
 Установка политик по умолчанию для цепочек.
@@ -452,7 +433,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -P FORWARD DROP` | По умолчанию отклонять пересылаемый трафик |
 | `sudo iptables -P OUTPUT ACCEPT` | По умолчанию разрешать исходящий трафик |
 
----
 
 ### Разрешение трафика
 Разрешение распространённого входящего трафика.
@@ -467,7 +447,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -A INPUT -p icmp -j ACCEPT` | Разрешить ping (ICMP) |
 | `sudo iptables -A INPUT -s 192.168.1.0/24 -j ACCEPT` | Разрешить трафик из подсети |
 
----
 
 ### Блокировка трафика
 Отклонение или отбрасывание трафика.
@@ -480,7 +459,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -A INPUT -p tcp --dport 25 -j REJECT` | Отклонить SMTP (с уведомлением отправителя) |
 | `sudo iptables -A INPUT -m mac --mac-source XX:XX:XX:XX:XX:XX -j DROP` | Заблокировать трафик с указанного MAC-адреса |
 
----
 
 ### Перенаправление портов (DNAT)
 Перенаправление трафика на другой хост или порт.
@@ -492,7 +470,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8443` | Пример перенаправления порта 443 на 8443 для использования в Docker контейнере |
 | `sudo iptables -A FORWARD -p tcp -d 192.168.1.10 --dport 80 -j ACCEPT` | Разрешить пересылаемый трафик |
 
----
 
 ### NAT (Маскарадинг)
 Включение NAT для исходящего трафика.
@@ -503,7 +480,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o eth0 -j SNAT --to-source 203.0.113.1` | Статический NAT с указанием исходного адреса |
 | `sudo sysctl -w net.ipv4.ip_forward=1` | Включить пересылку IP-пакетов |
 
----
 
 ### Ограничение скорости (Rate Limiting)
 Ограничение частоты соединений для предотвращения злоупотреблений.
@@ -514,7 +490,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 50 -j DROP` | Ограничить количество соединений с одного IP |
 | `sudo iptables -A INPUT -p icmp -m limit --limit 1/sec -j ACCEPT` | Ограничить частоту ping-запросов |
 
----
 
 ### Логирование
 Запись совпавших пакетов в журнал для отладки.
@@ -525,7 +500,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "SSH: " --log-level 4` | Логировать доступ по SSH с указанием уровня |
 | `sudo iptables -A INPUT -m limit --limit 5/min -j LOG` | Логирование с ограничением частоты |
 
----
 
 ### Удаление и вставка правил
 Управление порядком правил и их удаление.
@@ -539,7 +513,6 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo iptables -F` | Очистить все правила во всех цепочках |
 | `sudo iptables -F INPUT` | Очистить только цепочку INPUT |
 
----
 
 ### Сохранение и восстановление
 Сохранение правил для применения после перезагрузки.
@@ -551,6 +524,5 @@ iptables -A INPUT -j LOG --log-prefix "IPT_DROP: " --log-level 4
 | `sudo apt install iptables-persistent` | Установить автоматическое сохранение правил на Debian/Ubuntu |
 | `sudo service iptables save` | Сохранить правила на RHEL и совместимых дистрибутивах |
 
----
 
 > **Примечание:** Все команды iptables следует выполнять с правами суперпользователя (через `sudo` или из-под root).

@@ -7,102 +7,15 @@ layout: default
 [https://github.com/Apress/beg-grpc-w-asp.net-core-6](https://github.com/Apress/beg-grpc-w-asp.net-core-6)  
 [https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md](https://github.com/grpc/grpc/blob/master/src/csharp/BUILD-INTEGRATION.md)
 
-## Содержание
+## Chapter 2. Введение в ASP.NET Core 6
 
-- [Chapter 2. Введение в ASP.NET Core 6](#ch2)
-    - [ASP.NET Core gRPC](#ch2-1)
-- [Chapter 3. Введение в спецификацию gRPC](#ch3)
-    - [Введение в RPC](#ch3-1)
-    - [Концепция gRPC](#ch3-2)
-        - [Protobuf](#ch3-2-1)
-        - [gRPC Channel](#ch3-2-2)
-        - [Типы gRPC сервисов](#ch3-2-3)
-        - [Статусы gRPC](#ch3-2-5)
-        - [Deadline и Cancelation](#ch3-2-6)
-        - [Запросы и ответы по HTTP/2](#ch3-2-7)
-    - [Введение в протокол HTTP/2](#ch3-3)
-    - [Преимущества, недостатки и варианты использования](#ch3-4)
-- [Chapter 4. Protobuf](#ch4)
-    - [Индивидуальные определения](#ch4-1)
-    - [Определение сервиса](#ch4-2)
-    - [Определение сообщения](#ch4-3)
-        - [Скалярные типы значений](#ch4-3-1)
-        - [Коллекции](#ch4-3-2)
-            - [Списки](#ch4-3-2-1)
-            - [Словари](#ch4-3-2-2)
-        - [Перечисления](#ch4-3-3)
-        - [Вложенные типы](#ch4-3-4)
-        - [Импорт типов](#ch4-3-5)
-        - [Any, Value, Wrappers, даты, время (предопределенные типы)](#ch4-3-6)
-            - [Any](#ch4-3-6-1)
-            - [Wrappers](#ch4-3-6-2)
-            - [Value](#ch4-3-6-3)
-            - [Дата и время](#ch4-3-6-4)
-        - [Байты](#ch4-3-7)
-        - [One Of](#ch4-3-8)
-        - [Пустое сообщение](#ch4-3-9)
-        - [Комментарии](#ch4-3-10)
-- [Chapter 5. Создание ASP.NET Core gRPC приложения](#ch5)
-    - [Создание gRPC приложения](#ch5-1)
-    - [gRPCurl](#ch5-2)
-    - [gRPCui](#ch5-3)
-    - [TLS сертификаты](#ch5-4)
-    - [Обработка ошибок, обработка ответа, логирование](#ch5-4)
-    - [Валидация сообщений](#ch5-5)
-    - [Поддержка ASP.NET Core gRPC](#ch5-6)
-- [Chapter 6. Версионирование API](#ch6)
-    - [Версионирование](#ch6-1)
-    - [Регистрация версий Protobuf с помощью ASP.NET Core Minimal API](#ch6-2)
-- [Chapter 7. Создание gRPC клиента](#ch7)
-    - [Создание приложения, компиляция Protobuf-файлов](#ch7-1)
-    - [Вызов gRPC-функций](#ch7-2)
-    - [Оптимизация производительности](#ch7-3)
-        - [Преимущества сжатия](#ch7-3-1)
-        - [Определение лимита размера сообщения](#ch7-3-2)
-        - [Сохранение соединения HTTP/2 открытым](#ch7-3-3)
-        - [Увеличение максимального числа HTTP/2 соединений](#ch7-3-4)
-        - [Получение сообщений с ошибками валидации от сервера](#ch7-3-5)
-- [Chapter 8. С WCF на gRPC](#ch8)
-    - [Общее и различия в WCF и gRPC](#ch8-1)
-- [Chapter 9. Импорт и отображение данных с помощью ASP.NET Core Razor Pages, Hosted Services и gRPC](#ch9)
-- [Chapter 10. Спецификация gRPC-web](#ch10)
-    - [Спецификация gRPC-web](#ch10-1)
-    - [gRPC-web javascript библиотеки](#ch10-2)
-    - [gRPC-web vs REST API](#ch10-3)
-- [Chapter 11. gRPC-web сервис на ASP.NET Core](#ch11)
-    - [gRPC-web с экосистемой .NET](#ch11-1)
-        - [gRPC-web и ASP.NET Core 6](#ch11-1-1)
-        - [gRPC-web и все .NET клиенты](#ch11-1-2)
-        - [gRPC-web и клиенты ASP.NET Core 3+](#ch11-1-3)
-    - [Переработка CountryService для приложения браузера](#ch11-2)
-    - [Поддержка ASP.NET Core gRPC-web в Microsoft Azure](#ch11-3)
-- [Chapter 12. Импорт и отображение данных с Angular 12 и gRPC-web](#ch12)
-    - [Генерация заглушек TypeScript с Protoc](#ch12-1)
-    - [Доступ к данным с помощью Improbable клиента по gRPC-web](#ch12-2)
-    - [Загрузка файла, отображение данных с помощью TypeScript, Web Worker и gRPC-web](#ch12-3)
-    - [Управление данными с помощью TypeScript и gRPC-web](#ch12-4)
-- [Chapter 13. Защита приложений с OpenID](#ch13)
-    - [Введение в OpenID Connect](#ch13-1)
-    - [Конфигурация ASP.NET Core](#ch13-2)
-    - [Работа gRPCurl и gPRCui с JWT](#ch13-3)
-        - [gRPCurl](#ch13-3-1)
-        - [gRPCui](#ch13-3-1)
-    - [Использование C# клиента с JWT](#ch13-4)
-    - [Использование gRPC-web клиента с JWT](#ch13-5)
-    - [Получение данных о текущем пользователе на стороне сервера](#ch13-6)
-- [Приложение](#appendix)
-    - [Что нового в Grpc .Net Core 9](#appendix-1)
-    - [Локальная отладка](#appendix-2)
-
-## <a id="ch2">Chapter 2. Введение в ASP.NET Core 6</a>
-
-### <a id="ch2-1">ASP.NET Core gRPC</a>
+### ASP.NET Core gRPC
 
 gRPC - Google Remote Procedure Call, open-source, schema-first протокол, который использует преимущества HTTP/2 по пересылке сообщений в бинарном виде. Сообщения сериализуются и десериализуются с использованием Protocol Buffers (Protobuf), который является разновидностью Interface Definition Language (IDL).
 
-## <a id="ch3">Chapter 3. Введение в спецификацию gRPC</a>
+## Chapter 3. Введение в спецификацию gRPC
 
-### <a id="ch3-1">Введение в RPC</a>
+### Введение в RPC
 
 В RPC (Remote Procedure Call) клиент вызывает функцию - серверную процедуру с параметрами. Когда сервер отрабатывает процедуру, он отправляет ответ обратно клиенту. Клиент ждет ответа от сервера и не может выполнять другие операции.
 
@@ -111,9 +24,9 @@ gRPC - Google Remote Procedure Call, open-source, schema-first протокол,
 * В RPC API функционал сущеностей (например, создание, удаление) предоставляются как процедуры или функции, которые имеют входные параметры и возвращают ответ. У них нет привязок к методам HTTP (get, post и т.д.) и url-ам.
 * В REST API сущность рассматривается как ресурс и использует методы HTTP и url-ы для управления ресурсом. Соглашение RESTful предписывает разработчикам использовать методы HTTP для заданных ситуаций (как правило CRUD операции). REST также определяет использование кодов статусов запроса.
 
-### <a id="ch3-2">Концепция gRPC</a>
+### Концепция gRPC
 
-#### <a id="ch3-2-1">Protobuf</a>
+#### Protobuf
 
 Клиент gRPC знает о доступных процедурах/функциях и их входных/выходных параметрах через реализацию контракта Protobuf на клиенте и сервере (аналог WSDL для SOAP).
 
@@ -137,7 +50,7 @@ message CountryReply {
 }
 ```
 
-#### <a id="ch3-2-2">gRPC Channel</a>
+#### gRPC Channel
 
 Любой запрос к gRPC серверу с любого клиента выполняется через канал. Для инициализации gRPC канала необходима следующая информация:
 
@@ -181,7 +94,7 @@ var countryClient = new CountryServiceClient(channel);
 * TransientFailure - произошла ошибка, но не фатальная, канал может быть переиспользован, когда вернется в статус Ready после вызова ConnectAsync на клиенте
 * Shutdown - произошла фатальная ошибка или канал был выключен программно
 
-#### <a id="ch3-2-3">Типы gRPC сервисов</a>
+#### Типы gRPC сервисов
 
 [https://habr.com/ru/companies/otus/articles/780720/](https://habr.com/ru/companies/otus/articles/780720/)  
 [https://learn.microsoft.com/ru-ru/aspnet/core/grpc/client?view=aspnetcore-8.0](https://learn.microsoft.com/ru-ru/aspnet/core/grpc/client?view=aspnetcore-8.0)
@@ -202,13 +115,13 @@ var countryClient = new CountryServiceClient(channel);
 
 ![Последовательность запроса Bidirectional-streaming](./assets/3-4.png "Последовательность запроса Bidirectional-streaming")
 
-#### <a id="ch3-2-4">Трейлеры</a>
+#### Трейлеры
 
 gRPC позволяет использовать метаданные в виде трейлеров. Трейлеры - это заголовки HTTP, но работают иначе. В gRPC-запросе заголовки (Headers) и трейлеры (Trailers) передаются перед данными сообщения. В gRPC-ответе заголовки передаются перед данными сообщения, а трейлеры после с gRPC-статусом (это не тоже самое что HTTP статус, но похоже). При потоковой передаче методанные передаются после передачи данных.
 
 ![Заголовки, данные и трейлеры](./assets/3-5.png "Заголовки, данные и трейлеры")
 
-#### <a id="ch3-2-5">Статусы gRPC</a>
+#### Статусы gRPC
 
 Трейлеры - метаданные, содержат всю дополнительную иноформацию, но необязательные. Статус в ответе на gRPC запрос является обязательным.
 
@@ -232,13 +145,13 @@ gRPC позволяет использовать метаданные в вид�
 | DATA _LOSS | 15 | Unrecoverable data loss or corruption. |
 | UNAUTHENTICATED | 16 | The request does not have valid authentication credentials for the operation. |
 
-#### <a id="ch3-2-6">Deadline и Cancelation</a>
+#### Deadline и Cancelation
 
 По аналогии с REST запросу gRPC может быть назначен тайм-аут, в спецификации он же называется Deadline. Если наступает Deadline, клиент отправляет DEADLINE_EXCEEDED, сервер прекращает запрос, в экосистеме .NET при этом на сервере формируется Cancelation token.
 
 Если Deadline не указан (значение по умолчанию), запрос обрабатывается столько сколько потребуется.
 
-#### <a id="ch3-2-7">Запросы и ответы по HTTP/2</a>
+#### Запросы и ответы по HTTP/2
 
 * gRPC использует классические заголовки HTTP
 * использует специфичные заголовки, котрые называются трейлерами
@@ -263,7 +176,7 @@ https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md
 
 И в ответе и в запросе используется сообщение с предопределенной длиной.
 
-### <a id="ch3-3">Введение в протокол HTTP/2</a>
+### Введение в протокол HTTP/2
 
 Основной целью HTTP/2 (2015), приходящим на сменую HTTP/1.1 (1999), является увеличение производительности и устойчивости работы сетевого HTTP протокола за счет новых стратегий доставки данных: 
 
@@ -272,7 +185,7 @@ https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md
 * Использование приоритетов для запросов (flow control).
 * Поддержка проактивных push-уведомлений со стороны сервера (server push) - не поддерживается в gRPC.
 
-### <a id="ch3-4">Преимущества, недостатки и варианты использования</a>
+### Преимущества, недостатки и варианты использования
 
 За счет бинарного формата данных gRPC более производительный и в отличии от REST поддерживает двунаправленную потоковую передачу. Основной недостаток - слабая поддержка браузерами и невозможность отладки в браузере (gRPC-web, описанный ниже позволяет обходить несовместимость с браузерами). Другой недосток - недоступность кеширования в браузере, однако, здесь используется другой подход - кеширование in-memory.
 
@@ -293,7 +206,7 @@ https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md
 * Фоновые задания с подключением к одному или более веб-сервису.
 * Клиент взаимодействует с одним REST API, который выступает как прокси, за которым стоит несколько веб-сервисов.
 
-## <a id="ch4">Chapter 4. Protobuf<a>
+## Chapter 4. Protobuf
 
 Protobuf - протокол сериализации структурированных данных. Не поддерживает наследования. Файл Protobuf содержит три основные секции:
 
@@ -301,7 +214,7 @@ Protobuf - протокол сериализации структурирова�
 * Определения сервисов
 * Определения сообщений
 
-### <a id="ch4-1">Индивидуальные определения</a>
+### Индивидуальные определения
 
 Обязательно указывать версию синтаксиса, используемую в файле, например, на момент выхода книги:
 
@@ -397,7 +310,7 @@ namespace Apress.Sample.gRPC {
 
 Полный список опций: https://protobuf.dev/programming-guides/proto3/#options
 
-### <a id="ch4-2">Определение сервиса</a>
+### Определение сервиса
 
 В этой секции определяется название сервиса, его процедуры и параметры. Перед названием сервиса идет ключевое слово `service`, после перечисление всех функций в фигурных скобках:
 
@@ -458,7 +371,7 @@ public abstract partial class CountryServiceBase
 
 Исключения, создаваемые в процессе обработки gRPC-запросов имеют специальный класс - RpcException.
 
-### <a id="ch4-3">Определение сообщения</a>
+### Определение сообщения
 
 Синтаксис определения сообщения поддерживает:
 
@@ -495,7 +408,7 @@ message CountryReply {
 }
 ```
 
-#### <a id="ch4-3-1">Скалярные типы значений</a>
+#### Скалярные типы значений
 
 | Protobuf тип | C# тип | C# дефолтное значение |
 |--------------|--------|-----------------------|
@@ -515,14 +428,14 @@ message CountryReply {
 | string | string | string.Empty |
 | bytes | ByteString | empty bytes |
 
-#### <a id="ch4-3-2">Коллекции</a>
+#### Коллекции
 
 Поддерживаются следующие виды списков:
 
 * Списки
 * Словари
 
-##### <a id="ch4-3-2-1">Списки</a>
+##### Списки
 
 Для обозначения списков используется ключевое слово `repeated`, например:
 
@@ -576,7 +489,7 @@ namespace Server
 }
 ```
 
-##### <a id="ch4-3-2-2">Словари</a>
+##### Словари
 
 Словари определяются с помощью ключевого слова `map<TKey, TValue>`:
 
@@ -624,7 +537,7 @@ foreach (var country in countryReply.Countries) // country: KeyValuePair<int, st
 }
 ```
 
-#### <a id="ch4-3-3">Перечисления</a>
+#### Перечисления
 
 Используют ключевое слово enum, синтаксис аналогичен C#. Номера значений (0...6) содержат коды перечисления, а не позицию для сериализации/десериализации. Коды должны начинаться с 0, значение 0 - значение по умолчанию.
 
@@ -667,7 +580,7 @@ public enum Continent {
 
 Спецификация позволяет резервировать значения перечислений, однако лучше выпустить новую версию API.
 
-#### <a id="ch4-3-4">Вложенные типы</a>
+#### Вложенные типы
 
 Поддерживается вложение определений одних сообщений в другие:
 
@@ -687,7 +600,7 @@ message CountryReply {
 }
 ```
 
-#### <a id="ch4-3-5">Импорт типов</a>
+#### Импорт типов
 
 Синтаксис поддерживает импорт типов, объявленных во внешних файлах с помощью ключевого слова `import` и пути к файлу. Путь должен быть относительным для каталога, где располагаются исполняемые файлы при компиляции с помощью Protocol Buffer Compiler (*Protoc*). Также путь может быть настроен, в главе 12 будет рассматриваться ручное выполнение Protoc, в главах 5 и 7 - в составе Visual Studio.
 
@@ -708,11 +621,11 @@ message CountryReply {
 
 Примечание. Как правило, путь в директиве import должен начинаться от каталога проекта, в котором располагаются proto-файлы. Если импортируемый proto-файл располагается в другом проекте, ссылка регистрируется в виде: `<Protobuf Include="..\ДругойПроект\Protos\file.proto" Link="Protos\file.proto" GrpcServices="Server" />`. Для управление proto-ссылками в проекте также можно использовать `dotnet-grpc`.
 
-#### <a id="ch4-3-6">Any, Value, Wrappers, дата и время (предопределенные типы)</a>
+#### Any, Value, Wrappers, дата и время (предопределенные типы)
 
 Any, Value, Wrapper, дата и время - типы, которые имеют особое поведение и требуют специальной обработки. Они не могут быть скомпилированы как есть в C#. Поэтому Google предоставляет специальные proto-файлы которые должны быть добавлены и во время компиляции, .NET интерпретирует их с C# расширением, которое известно как расширение Protobuf's Well-Known Types.
 
-##### <a id="ch4-3-6-1">Any</a>
+##### Any
 
 Поле Any - нестрого типизированное поле. Может быть любым типом сообщения, но не примитивным типом.
 
@@ -760,7 +673,7 @@ if (country.Whatever.Is(Continent.Descriptor))
 country.Whatever.TryUnpack(out continent);
 ```
 
-##### <a id="ch4-3-6-2">Wrappers</a>
+##### Wrappers
 
 Nullable-типы C# не поддерживаются в Protobuf (они получают значения по умолчанию). Для работы с nullable-типами используются обертки (Well-Known Type wrappers).
 
@@ -810,7 +723,7 @@ message Continent {
 ...
 ```
 
-##### <a id="ch4-3-6-3">Value</a>
+##### Value
 
 Позволяет передавать в сообщениях поля, которые не типизированы, например динамические объекты, а также коллекции и значения null. Необходимо импортировать "google/protobuf/struct.proto".
 
@@ -933,7 +846,7 @@ public class ContinentModel
 }
 ```
 
-##### <a id="ch4-3-6-4">Дата и время</a>
+##### Дата и время
 
 Типы DateTimeOffset, DateTime и TimeSpan не имеют эквивалента в Protobuf, поэтому в нем реализованы Well-Known Types. Для работы с TimeSpan необходимо импортировать google/protobuf/duration.proto, для DateTimeOffset, DateTime - google/protobuf/timestamp.proto.
 
@@ -1005,7 +918,7 @@ var bookingDuration = flightBooking.FlightDuration.ToTimeSpan();
 var bookingDepartureTime = flightBooking.DepartureTime.ToDateTime(); // or ToDateTimeOffset()
 ```
 
-#### <a id="ch4-3-7">Байты</a>
+#### Байты
 
 В следующем примере для передачи бинарных данных определено сообщение CountryImageUpload, содержащее поля FileName, MimeType, Content. Полезно сохранять MIME тип данных для дальнейшего использования в http.
 
@@ -1086,7 +999,7 @@ var contentInStream = new MemoryStream();
 uploadFile.Content.WriteTo(contentInStream);
 ```
 
-#### <a id="ch4-3-8">One Of</a>
+#### One Of
 
 Функционал One Of дает возможность возвращать результат одним из нескольких предопределенных типов. Например, вместо исключения полезно передать тип, описывающий ошибку. В следующем примере в ответ на пользовательский запрос поиска страны по имени может быть возвращена информация о стране, о континенте (если пользователь случайно указал имя континента в запросе), или информация об ошибке, если ничего не было найдено.
 
@@ -1196,7 +1109,7 @@ switch (countryOrContinentReply.CountryOrContinentCase)
 
 Подход One Of возвращает один из заданных типов, в отличии от использования Any (поле может содержать любой тип, реализующий IMessage), или Value (поддерживающее число, строку, структуру, булево, null и коллекцию).
 
-#### <a id="ch4-3-9">Пустое сообщение</a>
+#### Пустое сообщение
 
 Может возникнуть необходимость вызвать удаленную процедуру без передачи параметров. Однако Protobuf требует обязательную передачу параметра в функцию. В этом случае доступны два варианта:
 
@@ -1266,7 +1179,7 @@ var emptyRequest = new Empty();
 var countries = await countryClient.GetAllAsync(emptyRequest);
 ```
 
-#### <a id="ch4-3-10">Комментарии</a>
+#### Комментарии
 
 Protobuf поддерживает использование комментариев аналогично C#:
 
@@ -1336,9 +1249,9 @@ public sealed partial class Error : pb::IMessage<Error>
 }
 ```
 
-## <a id="ch5">Chapter 5. Создание ASP.NET Core gRPC приложения</a>
+## Chapter 5. Создание ASP.NET Core gRPC приложения
 
-### <a id="ch5-1">Создание gRPC приложения</a>
+### Создание gRPC приложения
 
 1. Создать проект на основе шаблона grpc (добавяться нужные зависимости).
 
@@ -1365,7 +1278,7 @@ public sealed partial class Error : pb::IMessage<Error>
 
 8. Добавить сервис в middleware UseEndpoints `app.MapGrpcService<CountryGrpcService>()`
 
-### <a id="ch5-2">gRPCurl</a>
+### gRPCurl
 
 1. Добавить в приложение nuget-пакет Grpc.AspNetCore.Server.Reflection
 
@@ -1539,7 +1452,7 @@ message CountryCreationRequest {
 {}
 ```
 
-### <a id="ch5-3">gRPCui</a>
+### gRPCui
 
 Также требует установленного Go
 
@@ -1548,7 +1461,7 @@ message CountryCreationRequest {
 3. Из каталога gprcui выполнить `go run ./cmd/grpcui/grpcui.go -plaintext localhost:9019`, где localhost:9019 - адрес приложения из шага 2
 4. После компиляции в браузере откроется окно с gRPCui
 
-### <a id="ch5-4">TLS сертификаты</a>
+### TLS сертификаты
 
 Пример настройки серверного сертификата для Kestrel:
 
@@ -1567,7 +1480,7 @@ message CountryCreationRequest {
 }
 ```
 
-### <a id="ch5-4">Обработка ошибок, обработка ответа, логирование</a>
+### Обработка ошибок, обработка ответа, логирование
 
 Если в коде есть необработанное исключение, в ответ придет код ошибки Unknown
 
@@ -1820,19 +1733,19 @@ app.Use(async (context, next) =>
 app.Run();
 ```
 
-### <a id="ch5-5">Валидация сообщений</a>
+### Валидация сообщений
 
 ASP.NET Core gRPC нативно не поддерживает валидацию, аттрибут `required` языка C# для свойств объекта также не работает. Автор предлагает собственный nuget-пакет: `Install-Package Calzolari.Grpc.AspNetCore.Validation`.
 
-### <a id="ch5-6">Поддержка ASP.NET Core gRPC</a>
+### Поддержка ASP.NET Core gRPC
 
 На момент написания книги (2022, .NET 6) MS Azure и IIS не поддерживали gRPC из-за HTTP/2. На текущий момент gRPC поддерживается на IIS и локально Http.sys на Windows 11 Build 22000 и Windows Server 2022 Build 20348.
 
 https://learn.microsoft.com/en-us/aspnet/core/grpc/aspnetcore?view=aspnetcore-5.0&tabs=visual-studio
 
-## <a id="ch6">Chapter 6. Версионирование API</a>
+## Chapter 6. Версионирование API
 
-### <a id="ch6-1">Версионирование</a>
+### Версионирование
 
 Управлять версиями api gPRC можно с помощью директивы `package` и опции `csharp_namespace`. Ниже пример двух версий - в одной есть функционал запроса флага страны и эндпоинт удаления, у второй нет.
 
@@ -1972,7 +1885,7 @@ app.MapGrpcService<v1.CountryGrpcService>();
 app.MapGrpcService<v2.CountryGrpcService>();
 ```
 
-### <a id="ch6-2">Регистрация версий Protobuf с помощью ASP.NET Core Minimal API</a>
+### Регистрация версий Protobuf с помощью ASP.NET Core Minimal API
 
 Распространение актуальных версий Proto-файла среди клиентов, с учетом, что версий может быть несколько, как и файлов может быть достаточно сложной задачей. В качестве решения можно реализовать несколько эндпоинтов, с помощью которых клиенты всегда могут скачать актуальную версию.
 
@@ -2055,9 +1968,9 @@ app.MapGet("/protos/v{version:int}/{protoName}/view", async (ProtoService protoS
 app.Run();
 ```
 
-## <a id="ch7">Chapter 7. Создание gRPC клиента</a>
+## Chapter 7. Создание gRPC клиента
 
-### <a id="ch7-1">Создание приложения, компиляция Protobuf-файлов</a>
+### Создание приложения, компиляция Protobuf-файлов
 
 1. Создать консольное приложение
 
@@ -2111,7 +2024,7 @@ var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOp
 var countryClient = new CountryServiceClient(channel);
 ```
 
-### <a id="ch7-2">Вызов gRPC-функций</a>
+### Вызов gRPC-функций
 
 Реализация вызова метода без параметров, возвращающего поток:
 
@@ -2393,7 +2306,7 @@ await channel.ShutdownAsync();
 
 Переиспользование gRPC канала для всех клиентов позволяет повысить производительность, в этом случае не создается новый TCP сокет, не открывается новое TLS соединение, не открывается новое HTTP/2 соединение.
 
-### <a id="ch7-3">Оптимизация производительности</a>
+### Оптимизация производительности
 
 Выгоды использования одного канала были описаны в предыдущей главе. Ниже описываются другие опции:
 
@@ -2402,7 +2315,7 @@ await channel.ShutdownAsync();
 - поддержка открытого канала HTTP/2
 - увеличение числа HTTP/2 соединений при достижении предела, для предотвращения очередей
 
-#### <a id="ch7-3-1">Преимущества сжатия</a>
+#### Преимущества сжатия
 
 В главе 5 было показано, как настроить сжатие на серверной стороне с заданным провайдером сжатия - Brotli. Сжатие настроено, но не будет применяться, пока клиент не пришлет в запросе заголовок HeaderGrpcAcceptEncoding с соотвествующим значением.
 
@@ -2447,7 +2360,7 @@ channel.Dispose();
 await channel.ShutdownAsync();
 ```
 
-#### <a id="ch7-3-2">Определение лимита размера сообщения</a>
+#### Определение лимита размера сообщения
 
 Аналогично серверной части, на клиенте также можно установить размер входящего и исходящего сообщения с помощью класса GrpcChannelOptions.
 
@@ -2478,7 +2391,7 @@ var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOp
 var countryClient = new CountryServiceClient(channel);
 ```
 
-#### <a id="ch7-3-3">Сохранение соединения HTTP/2 открытым</a>
+#### Сохранение соединения HTTP/2 открытым
 
 Полезно, чтобы не терять времени на открытие нового соединения. Настраивается с помощью класса SocketsHttpHandler в свойстве HttpHandler класса GrpcChannelOptions. Следующий пример посылает на сервер ping keep-alive каждые 15 секунд в течении 5 минут, если за 5 минут запроса не последует, канал будет закрыт. Также добавлен тайм-аут в 5 секунд, если ответ от сервера будет приходить с задержкой.
 
@@ -2515,7 +2428,7 @@ var countryClient = new CountryServiceClient(channel);
 
 Чтобы ping в примере выше заработал, необходимо выполнить хотя бы один запрос.
 
-#### <a id="ch7-3-4">Увеличение максимального числа HTTP/2 соединений</a>
+#### Увеличение максимального числа HTTP/2 соединений
 
 Аналогично Kestrel, серверы поддерживают по умолчанию 100 одновременных запросов по одному HTTP/2 соединению. Канал gRPC использует одно HTTP/2 соединение, однако нагрузка может потребовать больше, чем 100 одновременных запросов. В этом случае запросы ставяться в очередь. С помощью SocketsHttpHandler можно настроить несколько HTTP/2 подключений для одного канала.
 
@@ -2531,17 +2444,17 @@ var countryClient = new CountryServiceClient(channel);
     ...
 ```
 
-#### <a id="ch7-3-5">Получение сообщений с ошибками валидации от сервера</a>
+#### Получение сообщений с ошибками валидации от сервера
 
 Описана реализация на основе nuget-пакета от автора книги Calzolari.Grpc.Net.Client.Validation.
 
-## <a id="ch8">Chapter 8. С WCF на gRPC</a>
+## Chapter 8. С WCF на gRPC
 
-### <a id="ch8-1">Общее и различия в WCF и gRPC</a>
+### Общее и различия в WCF и gRPC
 
 WCF использует подход code-first, gRPC - schema-first (proto-файлы). Аналогом proto-файлов для WCF служит файл WSDL, на основе которого генерируется клиент-прокси.
 
-## <a id="ch9">Chapter 9. Импорт и отображение данных с помощью ASP.NET Core Razor Pages, Hosted Services и gRPC</a>
+## Chapter 9. Импорт и отображение данных с помощью ASP.NET Core Razor Pages, Hosted Services и gRPC
 
 В целом описывается типовое решение, состоящее из проектов:
 * CountryService.gRPC
@@ -2581,7 +2494,7 @@ public async Task<IEnumerable<CountryModel>> GetAllAsync()
 }
 ```
 
-## <a id="ch10">Chapter 10. Спецификация gRPC-web</a>
+## Chapter 10. Спецификация gRPC-web
 
 Поскольку gRPC использует бинарную передачу данных, браузеры нативно не поддерживают данный формат. Раньше можно было встретить подход, при котором над gRPC делалась обертка REST. У данного подхода есть недостатки:
 
@@ -2591,7 +2504,7 @@ public async Task<IEnumerable<CountryModel>> GetAllAsync()
 
 Две компании в 2016 объединили усилия для разработки спецификации gRPC-web, которая должна была решить данные ограничения - Improbable и Google.
 
-### <a id="ch10-1">Спецификация gRPC-web</a>
+### Спецификация gRPC-web
 
 Данная спецификация решает следующие проблемы:
 
@@ -2606,7 +2519,7 @@ public async Task<IEnumerable<CountryModel>> GetAllAsync()
 
 С ASP.NET Core нет необходимости использовать прокси (см. главу 11).
 
-### <a id="ch10-2">gRPC-web javascript библиотеки</a>
+### gRPC-web javascript библиотеки
 
 Дальше выпуска спецификации у Improbable и Google в совместной работе дело не пошло, поэтому они выпустили отдельные javascript-библиотеки для работы по gRPC-web. Библиотеки работают похожим образом, но есть отличия.
 
@@ -2623,7 +2536,7 @@ public async Task<IEnumerable<CountryModel>> GetAllAsync()
 | Google text | Да | Нет | Да | Да | Нет |
 | Google binary | Да | Нет | Да | Нет | Нет |
 
-### <a id="ch10-3">gRPC-web vs REST API</a>
+### gRPC-web vs REST API
 
 Т.к. gRPC нативно не поддерживается браузерами, а gRPC-web хоть частично и закрывает проблемы, нет однозначног ответа использовать ли REST API или gRPC-web в своем проекте. Однако достоверно можно сказать, что даже на HTTP/1 (т.к. не все браузеры полностью поддерживают HTTP/2) производительность даже на base-64 транспорте у gRPC-web будет выше (https://devblogs.microsoft.com/dotnet/grpc-web-for-net-now-available/).
 
@@ -2636,11 +2549,11 @@ public async Task<IEnumerable<CountryModel>> GetAllAsync()
 - Нет необходимости в документации swagger - контракт описывается в protobuf
 - REST API широко распрастранен, и его сложно будет полностью заменить в ближайшее время
 
-## <a id="ch11">Chapter 11. gRPC-web сервис на ASP.NET Core</a>
+## Chapter 11. gRPC-web сервис на ASP.NET Core
 
-### <a id="ch11-1">gRPC-web с экосистемой .NET</a>
+### gRPC-web с экосистемой .NET
 
-#### <a id="ch11-1-1">gRPC-web и ASP.NET Core 6</a>
+#### gRPC-web и ASP.NET Core 6
 
 ASP.NET Core 6 для gRPC-web реализует те же функции, что и gRPC, кроме: клиент в браузера не поддерживает клиентский и двунаправленный потоковый сервис (только unary и серверный потоковый сервис, см раздел "Переработка CountryService для приложения браузера").
 
@@ -2659,15 +2572,15 @@ app.UseGrpcWeb();
 app.MapGrpcService<CountryGrpcService>().EnableGrpcWeb();
 ```
 
-#### <a id="ch11-1-2">gRPC-web и все .NET клиенты</a>
+#### gRPC-web и все .NET клиенты
 
 Раздел описывает создание клиента для версий .NET младше ASP.NET Core 3.0 с использованием HttpClientHandler.
 
-#### <a id="ch11-1-3">gRPC-web и клиенты ASP.NET Core 3+</a>
+#### gRPC-web и клиенты ASP.NET Core 3+
 
 Раздел описывает создание клиента для версий старше ASP.NET Core 3.0, но младше ASP.NET Core 6.0 с использованием GrpcWebHandler.
 
-### <a id="ch11-2">Переработка CountryService для приложения браузера</a>
+### Переработка CountryService для приложения браузера
 
 Т.к. браузеры не поддерживают клиентские и двунаправленные потоки, в книге предлагается следующая реализация. Создается три proto-файла:
 
@@ -2865,7 +2778,7 @@ app.MapGet("/protos/v{version:int}/{protoName}/view", async (ProtoService protoS
 app.Run();
 ```
 
-### <a id="ch11-3">Поддержка ASP.NET Core gRPC-web в Microsoft Azure</a>
+### Поддержка ASP.NET Core gRPC-web в Microsoft Azure
 
 Пример конфигурации Kestrel:
 
@@ -2887,9 +2800,9 @@ app.Run();
 }
 ```
 
-## <a id="ch12">Chapter 12. Импорт и отображение данных с Angular 12 и gRPC-web</a>
+## Chapter 12. Импорт и отображение данных с Angular 12 и gRPC-web
 
-### <a id="ch12-1">Генерация заглушек TypeScript с Protoc</a>
+### Генерация заглушек TypeScript с Protoc
 
 1. **Скачать корректную версию Protoc и Protobuf Well-Known Types**
 
@@ -2935,7 +2848,7 @@ protoc --plugin=protoc-gen-ts="{ABSOLUTE_PATH}/node_modules/.bin/protoc-gen-ts.c
 
 Если компиляция выполнится успешно в каталоге generated появятся *.d.ts и *.js файлы.
 
-### <a id="ch12-2">Доступ к данным с помощью Improbable клиента по gRPC-web</a>
+### Доступ к данным с помощью Improbable клиента по gRPC-web
 
 Improbable предоставляет общую функцию как для unary-вызовов так и для вызова потока сервера: `grpc.invoke(methodDescriptor: MethodDescriptor, props: InvokeRpcOptions)`. MethodDescriptor - это определение TypeScript метода, который планируется вызвать. Он определен в файле `{ProtobufName}_pb_services.d.ts`. Например:
 
@@ -3087,17 +3000,17 @@ export class CountryService {
 
 Далее в книге рассматриваются вспомогательные классы.
 
-### <a id="ch12-3">Загрузка файла, отображение данных с помощью TypeScript, Web Worker и gRPC-web</a>
+### Загрузка файла, отображение данных с помощью TypeScript, Web Worker и gRPC-web
 
 Раздел содержит описание реализации на Angular отображения/добавления элементов списка стран, загрузки двоичного файла, привязанного к элементу списка.
 
-### <a id="ch12-4">Управление данными с помощью TypeScript и gRPC-web</a>
+### Управление данными с помощью TypeScript и gRPC-web
 
 Раздел содержит описание реализации на Angular валидации и обновления элементов списка стран.
 
-## <a id="ch13">Chapter 13. Защита приложений с OpenID</a>
+## Chapter 13. Защита приложений с OpenID
 
-### <a id="ch13-1">Введение в OpenID Connect</a>
+### Введение в OpenID Connect
 
 OpenID - стандарт идентификация, построенный поверх протокола OAuth 2.0, который является протоколом авторизации. OpenID основан на принципе делегирования аутентификации - эта отвественность делигируется стороннему сервису (сервис-провайдер, identity-провайдер). Поскольку сервис полностью независим от приложения, он может использоваться множеством приложений для разработки единой аутентификации. Это и есть определение SSO (single sign-on).
 
@@ -3112,7 +3025,7 @@ https://openid.net/developers/how-connect-works/ - детальное описа
 
 Далее в книге примеры построены на использовании OpenID на основе Azure Active Directory. Рассматривается только access_token, работа с id_token и refresh_token не рассматривается.
 
-### <a id="ch13-2">Конфигурация ASP.NET Core</a>
+### Конфигурация ASP.NET Core
 
 Первоначально в приложении нужно установить nuget-пакет Microsoft.AspNetCore.Authentication.JwtBearer и прописать в GlobalUsings.cs:
 
@@ -3266,9 +3179,9 @@ public class CountryGrpcService : CountryServiceBase
 
 Расшифровать токен можно на сайте https://jwt.io
 
-### <a id="ch13-3">Работа gRPCurl и gPRCui с JWT</a>
+### Работа gRPCurl и gPRCui с JWT
 
-#### <a id="ch13-3-1">gRPCurl</a>
+#### gRPCurl
 
 Если сервис защищен с помощью OpenID, то попытка обратиться к нему без передачи JWT закончится ответом Unauthorized (401). Добавить токен можно с помощью заголовка `-H
 "authorization: bearer {TOKEN}"`, например:
@@ -3277,11 +3190,11 @@ public class CountryGrpcService : CountryServiceBase
 grpcurl -H 'authorization: bearer eyJOeXAiO....NMd1Q' localhost:5001 CountryService.v1.CountryService/GetAll
 ```
 
-#### <a id="ch13-3-1">gRPCui</a>
+#### gRPCui
 
 На вкладке Request Form в разделе Request Metadata нужно добавить элемент: Name - authorization, Value - bearer eyJOeXAiO....NMd1Q
 
-### <a id="ch13-4">Использование C# клиента с JWT</a>
+### Использование C# клиента с JWT
 
 Ниже представлен код с добавлением токена JWT, а также обработка ошибок UNAUTHENTICATED и PERMISSIONDENIED с конструкцией catch ... when:
 
@@ -3324,7 +3237,7 @@ public async IAsyncEnumerable<CountryModel> GetAllAsync(string token)
 }
 ```
 
-### <a id="ch13-5">Использование gRPC-web клиента с JWT</a>
+### Использование gRPC-web клиента с JWT
 
 Библиотека Improbable предоставляет тип `grpc.Metadata` с помощью которого можно установить заголовок с токеном:
 
@@ -3348,7 +3261,7 @@ public GetAll(countries: CountryModel[], token: String): void {
 
 В случае отсутствия или некорректного токена в консоли браузера будут отображаться ошибки Unauthenticated или PermissionDenied.
 
-### <a id="ch13-6">Получение данных о текущем пользователе на стороне сервера</a>
+### Получение данных о текущем пользователе на стороне сервера
 
 Данные пользователя можно получить с помощью объекта ServerCallContext через объект HttpContext.User, например:
 
@@ -3371,9 +3284,9 @@ public class CountryGrpcService : CountryServiceBase
 }
 ```
               
-## <a id="appendix">Приложение</a>
+## Приложение
 
-### <a id="appendix-1">Что нового в Grpc .Net Core 9</a>
+### Что нового в Grpc .Net Core 9
 
 В gRPC для .NET Core 9 по сравнению с версией 6 появились следующие ключевые изменения и улучшения:
 
