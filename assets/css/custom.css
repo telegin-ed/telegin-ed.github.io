@@ -2,7 +2,11 @@
 
 :root {
   --sidebar-w: 400px;
-  --header-h: 44px;
+  --header-h: 64px;
+}
+
+html {
+  scroll-padding-top: var(--header-h);
 }
 
 /* Основной шрифт — Inter (свободный аналог Google Sans), моно — JetBrains Mono.
@@ -20,15 +24,15 @@ samp {
 }
 
 /* Базовая раскладка: сайдбар — горизонтальная полоса над контентом (мобайл). */
-.layout {
+body .layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-size: 1.2em;
 }
 
 .site-sidebar {
   padding: 28px 24px;
-  font-size: 14px;
   border-bottom: 1px solid #eaeef2;
 }
 
@@ -40,9 +44,10 @@ samp {
   top: 0;
   z-index: 100;
   width: 100%;
+  height: var(--header-h);
   padding: 0.5em 24px;
   box-sizing: border-box;
-  font-size: 1.4em;
+  font-size: 24px;
   font-weight: bold;
   font-family: "Oswald", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
@@ -50,7 +55,7 @@ samp {
 
 .site-brand .home-link {
   background-color: #24292f;
-  padding: 0.5em 0.8em;
+  padding: 8px 16px;
   box-sizing: border-box;
 }
 
@@ -63,6 +68,10 @@ samp {
   color: #24292f;
   font-weight: bold;
   white-space: nowrap;
+}
+
+.main {
+  padding-top: var(--header-h);
 }
 
 .site-sidebar nav ul {
@@ -116,7 +125,7 @@ samp {
   }
 
   .main {
-    min-height: 100vh;
+    min-height: calc(100vh - var(--header-h));
   }
 
   /* Контент центрируется по середине окна, а когда ширины не хватает
