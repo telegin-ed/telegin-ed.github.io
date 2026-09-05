@@ -2,8 +2,6 @@
 layout: default
 ---
 
-## Саммари
-
 - [Openspec](./openspec/openspec-cheatsheet.md)
 - [C# Concurrency. Асинхронное программирование и многопоточность](./c-sharp-concurrency/c-sharp-concurrency.md)
 - [Комплексный курс по Qwen Code CLI](./qwen-code-cli/qwen-code-cli.md)

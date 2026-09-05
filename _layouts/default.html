@@ -10,13 +10,16 @@
     {% include head-custom.html %}
   </head>
   <body>
+    <header class="site-brand">
+      <div class="home-link">
+        <a href="{{ "/" | absolute_url }}" title="T-ED">T-ED</a>
+      </div>
+      <div class="site-title">
+        Summaries
+      </div>
+    </header>
     <div class="layout">
       <aside class="site-sidebar" id="site-sidebar" aria-label="Оглавление">
-        <div class="site-brand">
-          {% if site.title %}
-            <a href="{{ "/" | absolute_url }}" title="{{ site.title }}">{{ site.title }}</a>
-          {% endif %}
-        </div>
         <nav id="toc"></nav>
       </aside>
 

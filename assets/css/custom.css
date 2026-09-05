@@ -2,6 +2,7 @@
 
 :root {
   --sidebar-w: 400px;
+  --header-h: 44px;
 }
 
 /* Основной шрифт — Inter (свободный аналог Google Sans), моно — JetBrains Mono.
@@ -31,15 +32,37 @@ samp {
   border-bottom: 1px solid #eaeef2;
 }
 
-.site-sidebar .site-brand {
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: 600;
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 0.5em 24px;
+  box-sizing: border-box;
+  font-size: 1.4em;
+  font-weight: bold;
+  font-family: "Oswald", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
 }
 
-.site-sidebar .site-brand a {
-  color: #24292f;
+.site-brand .home-link {
+  background-color: #24292f;
+  padding: 0.5em 0.8em;
+  box-sizing: border-box;
+}
+
+.site-brand .home-link>a {
+  color: #eaeef2;
   text-decoration: none;
+}
+
+.site-title {
+  color: #24292f;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 .site-sidebar nav ul {
@@ -82,10 +105,10 @@ samp {
 
   .site-sidebar {
     position: fixed;
-    top: 0;
+    top: var(--header-h);
     left: 0;
     width: var(--sidebar-w);
-    height: 100vh;
+    height: calc(100vh - var(--header-h));
     overflow-y: auto;
     box-sizing: border-box;
     border-bottom: none;
