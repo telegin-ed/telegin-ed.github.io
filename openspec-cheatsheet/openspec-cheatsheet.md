@@ -53,7 +53,7 @@ OpenSpec не автогенерирует спеки из существующ�
 срез, и со временем `specs/` заполняются вокруг реальной работы. Заполнять
 спеку задним числом (backfill) официально не рекомендуется.
 
-### Типовой первый цикл
+**Типовой первый цикл**
 
 ```
 /opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:archive
@@ -66,7 +66,7 @@ OpenSpec не автогенерирует спеки из существующ�
 Для guided-обучающего цикла на вашем коде есть расширенная команда `/opsx:onboard`
 (включается через `openspec config profile` + `openspec update`).
 
-### Куда записать tech stack и конвенции
+**Куда записать tech stack и конвенции**
 
 ```yaml
 # openspec/config.yaml
@@ -108,7 +108,7 @@ context: |
 
 ## Короткие промты для типовых задач в .NET
 
-### Добавление новой фичи
+**Добавление новой фичи**
 
 ```
 /opsx:propose add-rate-limiting
@@ -118,7 +118,7 @@ context: |
 /opsx:propose добавить middleware для rate limiting на эндпоинты контроллеров
 ```
 
-### Изменение существующего поведения
+**Изменение существующего поведения**
 
 ```
 /opsx:propose change-jwt-to-reference-tokens
@@ -128,13 +128,13 @@ context: |
 /opsx:propose заменить JWT на reference tokens, обновить AuthHandler
 ```
 
-### Добавление эндпоинта
+**Добавление эндпоинта**
 
 ```
 /opsx:propose add-orders-export-endpoint
 ```
 
-### Рефакторинг
+**Рефакторинг**
 
 ```
 /opsx:propose refactor-repository-to-dapper
@@ -144,13 +144,13 @@ context: |
 /opsx:propose перевести OrderRepository с EF Core на Dapper
 ```
 
-### Добавление интеграции
+**Добавление интеграции**
 
 ```
 /opsx:propose add-kafka-order-events
 ```
 
-### Исправление бага
+**Исправление бага**
 
 ```
 /opsx:propose fix-concurrent-update-race-condition
