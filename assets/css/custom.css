@@ -76,70 +76,74 @@ body .layout {
   padding-top: var(--header-h);
 }
 
-.site-sidebar nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.site-sidebar nav {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    ul {
+      margin-left: 16px;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 3px 0;
+    color: #57606a;
+    line-height: 1.4;
+    text-decoration: none;
+
+    &:hover {
+      color: #0969da;
+    }
+  }
+
+  /* Жирнее и темнее — только верхний уровень (h2, родительские пункты). */
+  > ul > li > a {
+    font-weight: 600;
+    color: #24292f;
+  }
+
+  .toc-3 a {
+    font-size: 15px;
+  }
 }
 
-.site-sidebar nav ul ul {
-  margin-left: 16px;
-}
-
-.site-sidebar nav a {
-  display: block;
-  padding: 3px 0;
-  color: #57606a;
-  line-height: 1.4;
-  text-decoration: none;
-}
-
-.site-sidebar nav a:hover {
-  color: #0969da;
-}
-
-/* Жирнее и темнее — только верхний уровень (h2, родительские пункты). */
-.site-sidebar nav > ul > li > a {
-  font-weight: 600;
-  color: #24292f;
-}
-
-.site-sidebar nav .toc-3 a {
-  font-size: 15px;
-}
-
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
+.markdown-body :is(h1, h2, h3, h4, h5, h6) {
   font-family: "Oswald", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-.main .markdown-body h1 { font-size: 2.4em; }
-.main .markdown-body h2 { font-size: 1.8em; }
-.main .markdown-body h3 { font-size: 1.5em; }
-.main .markdown-body h4 { font-size: 1.2em; }
-.main .markdown-body h5 { font-size: 1.1em; }
-.main .markdown-body h6 { font-size: 1em; }
+.main .markdown-body {
+  h1 { font-size: 2.4em; }
+  h2 { font-size: 1.8em; }
+  h3 { font-size: 1.5em; }
+  h4 { font-size: 1.2em; }
+  h5 { font-size: 1.1em; }
+  h6 { font-size: 1em; }
+}
 
 /* Главная страница: ссылки на статьи — как верхний уровень сайдбара. */
-.layout.no-sidebar .markdown-body ul {
-  list-style: none;
-  padding-left: 0;
-}
+.layout.no-sidebar .markdown-body {
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
 
-.layout.no-sidebar .markdown-body a {
-  font-weight: 600;
-  font-size: 18px;
-  color: #24292f;
-  text-decoration: none;
-}
+  li {
+    margin-bottom: 1.1em;
 
-.layout.no-sidebar .markdown-body a:hover {
-  color: #0969da;
-  text-decoration: none;
+    a {
+      font-weight: 600;
+      font-size: 18px;
+      color: #24292f;
+      text-decoration: none;
+      &:hover {
+        color: #0969da;
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 /* Оглавления нет (главная и короткие страницы) — сайдбар скрыт целиком. */

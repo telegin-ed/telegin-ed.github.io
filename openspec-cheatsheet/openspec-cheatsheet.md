@@ -43,9 +43,7 @@ openspec/
 конвенции проекта прописываются в `openspec/config.yaml` (поле `context:`) —
 только там, и OpenSpec их не перезаписывает.
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md#openspec-init
-
----
+> Источник: [CLI Reference - openspec init](https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md#openspec-init)
 
 ## Работа в существующем проекте (brownfield)
 
@@ -85,9 +83,7 @@ context: |
   - Валидация через FluentValidation
 ```
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/existing-projects.md
-
----
+> Источник: [Using OpenSpec in an Existing Project](https://github.com/Fission-AI/OpenSpec/blob/main/docs/existing-projects.md)
 
 ## Базовый рабочий цикл (core profile)
 
@@ -108,9 +104,7 @@ context: |
 > `sync` — опциональная команда: `archive` предложит синхронизацию, если дельты
 > ещё не смёрджины.
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#quick-reference
-
----
+> Источник: [Commands - Quick Reference](https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#quick-reference)
 
 ## Короткие промты для типовых задач в .NET
 
@@ -162,9 +156,7 @@ context: |
 /opsx:propose fix-concurrent-update-race-condition
 ```
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#opsxpropose
-
----
+> Источник: [Commands - opsx:propose](https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#opsxpropose)
 
 ## CLI-команды
 
@@ -201,9 +193,7 @@ openspec config profile
 openspec update
 ```
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md
-
----
+> Источник: [CLI Reference](https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md)
 
 ## Структура delta-спеки
 
@@ -255,9 +245,7 @@ Delta-спеки описывают только **то, что изменитс
 > `sync` также распознаёт `RENAMED`-секции; спека — это контракт поведения
 > (RFC 2119: `MUST`/`SHALL`, `SHOULD`, `MAY`), без планов реализации.
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/writing-specs.md
-
----
+> Источник: [Writing Good Specs](https://github.com/Fission-AI/OpenSpec/blob/main/docs/writing-specs.md)
 
 ## Расширенный профиль (expanded)
 
@@ -281,9 +269,7 @@ openspec update
 | `/opsx:bulk-archive` | Архивация нескольких changes сразу          |
 | `/opsx:onboard`   | Обучающий цикл через реальную кодовую базу    |
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#expanded-workflow-commands-custom-workflow-selection
-
----
+> Источник: [Commands - Expanded Workflow Commands](https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md#expanded-workflow-commands-custom-workflow-selection)
 
 ## Практические советы для .NET
 
@@ -311,9 +297,7 @@ openspec update
 
 7. **После каждого завершённого change — archive**, чтобы delta-спеки мерджились в `openspec/specs/`.
 
-> Источники: https://github.com/Fission-AI/OpenSpec/blob/main/docs/writing-specs.md · https://github.com/Fission-AI/OpenSpec/blob/main/docs/existing-projects.md
-
----
+> Источники: [Using OpenSpec in an Existing Project](https://github.com/Fission-AI/OpenSpec/blob/main/docs/existing-projects.md) · [Writing Good Specs](https://github.com/Fission-AI/OpenSpec/blob/main/docs/writing-specs.md)
 
 ## Типовой сценарий: добавление фичи в существующий .NET-проект
 
@@ -324,21 +308,24 @@ openspec update
 # 2. Создать изменения с артефактами
 /opsx:propose add-orders-response-caching
 
-# 3. Проверить структуру
+# 3. Уточнить (опционально; можно также выполнить после реализации или перед архивацией, в этом случае снова переход к шагу 4)
+/opsx:update add-orders-response-caching
+
+# 4. Проверить структуру
 openspec validate add-orders-response-caching --strict
 
-# 4. Реализовать
+# 5. Реализовать
 /opsx:apply
 
-# 5. Проверить соответствие (опционально, только в расширенном профиле)
+# 6. Проверить соответствие (опционально, только в расширенном профиле)
 /opsx:verify
 
-# 6. Мерджить дельта спеки в основную спеку (опционально;
+# 7. Мерджить дельта спеки в основную спеку (опционально;
 #    archive сам предложит sync при необходимости)
 /opsx:sync
 
-# 7. Заархивировать завершенные изменения
+# 8. Заархивировать завершенные изменения
 /opsx:archive
 ```
 
-> Источник: https://github.com/Fission-AI/OpenSpec/blob/main/docs/workflows.md
+> Источник: [Workflows](https://github.com/Fission-AI/OpenSpec/blob/main/docs/workflows.md)
